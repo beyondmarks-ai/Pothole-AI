@@ -1,0 +1,19 @@
+Audience: project guide, Government Engineering College, Bidar.
+Communication job: explain a feasible proposed prototype that connects road-damage AI to verified municipal maintenance, and make the design and evaluation approach reviewable.
+Source: Road_Damage_Detection_16_Page_Synopsis.docx, supplied by user. User's nine-step workflow controls process explanation. No measured results are claimed.
+
+12-slide narrative:
+01. AI-Based Road Damage Detection / Municipal Maintenance Management System. Academic title, team, guide and institution from synopsis.
+02. The problem: a photo alone does not resolve a complaint. Disconnected reporting, incomplete location, uncertain priority, missing closure evidence.
+03. Project objectives. Detect and locate; prioritize transparently; coordinate verified repairs; retain road history.
+04. Literature and project focus. Maeda smartphone imagery; RDD2022 benchmark; YOLOv8 candidate implementation. Contribution: integrated municipal workflow, not a novelty claim about detection.
+05. How the system works. User's nine steps in three chronological groups: capture/analyze; review/assign; repair/close/retain history.
+06. Turning road imagery into a usable report. Upload validation, sampled video frames, pretrained detector, four supported classes, GPS association and deduplication. Confidence is separate from severity.
+07. Severity and priority answer different questions. Concern from visible extent; explainable urgency from severity/importance/age/exposure; provisional road health score for surveyed segments. No exact depth from ordinary photos.
+08. Proposed system architecture. React client, FastAPI service, queue/inference worker, PostgreSQL/PostGIS, object storage and notifications. Use simple readable architecture from source, adapted as needed.
+09. Officers control approval and closure. Map/evidence review; approve/reject/merge; assign team and target; review after-repair photos; close or return. Preserve audit history.
+10. Prototype requirements and implementation. Suggested stack and four implementation milestones. GPS phone, 16GB development PC, optional GPU. Existing checkpoint subject to validation.
+11. Evaluation plan. Detection precision/recall/mAP, location checks, scoring agreement, processing delay, workflow scenarios. State proposed evaluation, no claimed accuracy.
+12. Expected outcome and next steps. Complete traceable case, verified repair history, recurring-damage monitoring. Lighting/GPS/staff participation limitations. Forecasting only after sufficient verified history. Close with next milestone: one full case from upload to officer-approved closure.
+
+Visual approach: 16:9, white canvas, black/dark type, light gray rules and one restrained blue highlight. Varied open column, table, process and diagram layouts from Codex Grid. No generic icon grid, fake dashboard or invented results. Logos from source only. All final slides need render review.

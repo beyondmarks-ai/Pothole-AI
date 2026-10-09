@@ -1,0 +1,7 @@
+Primary source: D:/Pothole/Road_Damage_Detection_16_Page_Synopsis.docx, read in full via OOXML text extraction.
+Workflow source: user's nine-step description in this conversation.
+Brand asset: college logo extracted from word/media/image2.png in the supplied DOCX.
+Literature: summarized from synopsis sections 6 and 18; references retained in slide 4 speaker notes. No independent experimental results or performance claims added.
+Design reference: bundled Codex Grid, open columns, ruled tables and process compositions.
+Implementation exception: user explicitly approved an alternative creation method after the required presentation runtime loader was found unavailable. Native PowerPoint COM used for editable shapes, text and connectors, PPTX export and rendering.
+Final QA: all 12 slides individually reviewed; title/body wrapping, architecture node text and connector label placement corrected. Native PowerPoint checks report 0 text overflow, 0 text overlap and 0 off-canvas text. PPTX has 12 slides and 12 speaker-note parts.

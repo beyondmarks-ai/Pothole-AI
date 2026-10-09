@@ -1,0 +1,246 @@
+﻿VISVESWARAYA TECHNOLOGICAL UNIVERSITYBELAGAVI – 590018
+
+A Major Project Synopsis on
+“AI-Based Road Damage Detection andMunicipal Maintenance Management System”
+Submitted in partial fulfilment of the requirements for the award of the degree of
+Bachelor of EngineeringInComputer Science and Engineering
+Submitted By:
+Bhagyashree (3DG23CS007)
+Pallavi (3DG23CS028)
+Pratiksha (3DG23CS031)
+Vakilata (3DG23CS059)
+Under the guidance of:
+Asst. Prof. Pooja Hebbale (CSE Department)
+
+Government Engineering College, Bidar - 585403
+(Affiliated to VTU Belagavi, Recognized by AICTE, New Delhi & Approved byGovernment of Karnataka)
+2025–26
+
+GOVERNMENT ENGINEERING COLLEGE, BIDAR
+Gandhi Nagar, ITI Campus, Mailoor Road, Bidar-585403
+DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING
+
+CERTIFICATE
+This is to certify that the project synopsis entitled “AI-Based Road Damage Detection and Municipal Maintenance Management System” is submitted by Bhagyashree (3DG23CS007), Pallavi (3DG23CS028), Pratiksha (3DG23CS031) and Vakilata (3DG23CS059), students of Government Engineering College, Bidar, for academic consideration in the Bachelor of Engineering programme in Computer Science and Engineering under Visvesvaraya Technological University, Belagavi, for the academic year 2025–2026.
+The synopsis presents the proposed problem, objectives, methodology, system architecture, resource requirements and evaluation plan. The project is proposed under the guidance of Asst. Prof. Pooja Hebbale, Department of Computer Science and Engineering. The described capabilities and results are intended outcomes to be implemented and evaluated during the project.
+The signatures below record departmental review and approval of this synopsis. They do not certify a completed deployment, measured model performance or completion of municipal repair work.
+________________________
+Signature of HOD
+Prof. Renuka Devi
+GECB
+________________________
+Signature of Principal
+Dr. Devendra Hanche
+GECB
+________________________
+Signature of Guide
+Prof. Pooja Hebbale
+GECB
+________________________
+Signature of Co-ordinator
+Prof. Jaya Dixit
+GECB
+
+ACKNOWLEDGEMENT
+We express our sincere gratitude to Government Engineering College, Bidar, for the academic environment and institutional support associated with our engineering studies and the preparation of this project synopsis.
+We are grateful to our Principal, Dr. Devendra Hanche, for encouraging academic learning and project-based development. We extend our thanks to the Head of the Department of Computer Science and Engineering, Prof. Renuka Devi, for departmental guidance and support.
+We express our sincere thanks to our project guide, Asst. Prof. Pooja Hebbale, for the guidance associated with the proposed work. The preparation of this synopsis has helped us organize the project problem, define its scope and identify the need to distinguish AI-generated observations from verified municipal decisions.
+We also thank our project co-ordinator, Prof. Jaya Dixit, and the faculty members of the Computer Science and Engineering Department for their academic support and encouragement.
+We acknowledge the researchers and developers whose published work, datasets, implementation resources and documentation have informed the technical proposal. These sources are cited in the report. Their contributions provide a starting point for understanding road-damage detection and planning an appropriate prototype.
+Finally, we thank our classmates and friends for their encouragement. We look forward to applying the proposed methodology carefully and documenting the actual implementation, evaluation and findings as the project progresses.
+
+Bhagyashree (3DG23CS007)
+Pallavi (3DG23CS028)
+Pratiksha (3DG23CS031)
+Vakilata (3DG23CS059)
+
+GOVERNMENT ENGINEERING COLLEGE, BIDAR
+Gandhi Nagar, ITI Campus, Mailoor Road, Bidar-585403
+DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING
+
+DECLARATION
+We, Bhagyashree (3DG23CS007), Pallavi (3DG23CS028), Pratiksha (3DG23CS031) and Vakilata (3DG23CS059), students of Bachelor of Engineering in Computer Science and Engineering at Government Engineering College, Bidar, declare that this synopsis presents our proposed project entitled “AI-Based Road Damage Detection and Municipal Maintenance Management System” for the academic year 2025–2026 under Visvesvaraya Technological University, Belagavi.
+We accept responsibility for the contents of this submission. Published research, datasets, software resources and technical documentation used to inform the proposal are acknowledged through references. The scope, design choices and evaluation approach described here will guide the implementation of the project.
+The proposed features and expected results are not presented as completed experimental findings. Actual implementation details, test observations and limitations will be documented during project execution. The system will assist municipal decision-making; verification, authorization, physical repair and final closure remain the responsibility of authorized municipal personnel.
+
+Place: Bidar
+Date: __________________
+Bhagyashree (3DG23CS007)   __________________
+Pallavi (3DG23CS028)   __________________
+Pratiksha (3DG23CS031)   __________________
+Vakilata (3DG23CS059)   __________________
+
+INDEX
+
+ContentsPage No.
+Abstract06
+1. Introduction07
+2. Problem Statement07
+3. Motivation07
+4. Objectives08
+5. Scope of the Project08
+6. Literature Survey09
+7. Proposed System10
+8. Methodology10
+9. Complete Workflow11
+10. Major Modules12
+11. Suggested Technical Architecture12
+12. Software and Hardware Requirements13
+13. Expected Results and Evaluation14
+14. Advantages14
+15. Limitations15
+16. Future Scope15
+17. Conclusion16
+18. References16
+
+ABSTRACT
+Road damage monitoring requires more than identifying a defect in an image. Municipal authorities must know where the defect is located, how urgently it should be inspected, who is responsible for the work and whether the repair has been completed satisfactorily. This project proposes an integrated road-damage detection and municipal maintenance management system that connects visual analysis with an accountable operational workflow.
+The system will accept road images and video accompanied by capture timestamps and GPS information. A road-damage-trained computer vision model will detect visible defects and assign supported categories. Location association, severity analysis, road health scoring and priority calculation will convert these observations into provisional incident records. A municipal alert service and dashboard will present the evidence to the appropriate staff for review and action.
+The complete workflow covers road image/video input, AI damage detection, classification, GPS location, severity analysis, road health score, priority calculation, municipal alert, dashboard, officer verification, maintenance assignment, repair tracking, before/after verification, historical database and predictive maintenance. Each stage will preserve the information required by the next stage, while maintaining an auditable record of decisions and status changes.
+The proposed technical solution combines a web interface, a Python application service, an independent inference worker, a geospatial database and media storage. Existing road-damage model resources will be evaluated for the prototype, avoiding the need to train a detector from scratch. Historical observations will initially support trend analysis; predictive forecasting will be introduced only when sufficient verified longitudinal data are available.
+The system detects, analyzes, locates, prioritizes and alerts. Municipal officers verify findings, authorize assignments and approve closure, while maintenance teams physically complete repairs. The expected outcome is a demonstrable decision-support prototype with traceable incident handling. Detection accuracy, processing time, location quality and scoring agreement will be measured during evaluation; no completed deployment or achieved performance is claimed in this synopsis.
+Keywords: road-damage detection; computer vision; GPS; municipal dashboard; repair tracking; predictive maintenance.
+
+1. INTRODUCTION
+Road infrastructure requires regular observation and timely maintenance to remain usable. Potholes and surface cracks can develop gradually, recur after repair or become difficult to identify in unsuitable lighting and weather. A systematic record of visible condition can help authorities organize inspections and document the response to reported damage.
+Computer vision provides a means of screening road imagery for possible defects. However, a detected region is only an observation: it must be linked to a reliable location, interpreted in context and reviewed before maintenance work is approved. This project therefore combines image analysis with a municipal workflow, covering the period from first observation to verified repair and historical reporting.
+2. PROBLEM STATEMENT
+A maintenance process that relies on disconnected photographs, messages and periodic manual inspection may produce incomplete location details, duplicate complaints and inconsistent priority decisions. Without a shared incident record, it can be difficult to determine whether a report has been reviewed, assigned, repaired or closed with supporting evidence.
+The problem addressed is the absence of an integrated mechanism that transforms road images or video into geolocated, prioritized and traceable maintenance cases. The system must support uncertain findings, preserve responsibility for municipal decisions and distinguish automated observations from verified defects. It must also retain comparable records for later condition analysis.
+3. MOTIVATION
+The project is motivated by the need to connect early defect identification with practical follow-up. A unified dashboard can reduce the effort of collecting evidence, locating cases and checking progress. Reusing an existing road-damage detector provides a feasible starting point for an academic prototype, while officer review helps prevent uncertain predictions from being treated as confirmed instructions.
+The intended contribution is a complete maintenance information cycle. The application supports human inspection and coordination; it does not determine structural safety, authorize expenditure independently or perform physical repairs.
+
+4. OBJECTIVES
+The primary objective is to design and demonstrate a system that combines AI-assisted road-damage identification with a traceable municipal maintenance process. The specific objectives are:
+•  Detect visible defects in uploaded road images or sampled video frames and classify them using the selected model’s supported labels.
+•  Associate observations with capture time, GPS coordinates and road segments, while exposing missing or unreliable location data.
+•  Estimate severity, summarize surveyed road condition and calculate explainable inspection priorities using configurable rules.
+•  Provide municipal alerts and a dashboard for officer verification, maintenance assignment, progress updates and evidence-based closure.
+•  Maintain historical observations and repair records for recurring-damage analysis and later predictive maintenance.
+•  Evaluate detection quality, location reliability, scoring agreement, processing delay and completion of the operational workflow.
+5. SCOPE OF THE PROJECT
+The initial scope covers image uploads and batch video analysis, geospatial incident records, provisional scoring, dashboard views, configured notifications and repair tracking. The selected detector will target potholes and longitudinal, transverse and alligator cracks where its checkpoint supports those categories [1, 3]. Municipal roles will include officers, maintenance staff and an administrator responsible for configuration.
+The prototype will support a defined road network or demonstration jurisdiction. Repeated observations of the same defect will be grouped without discarding their evidence. A case may be rejected, merged, reopened or returned for further work; these decisions will retain the responsible user, timestamp and reason.
+Automatic structural certification, exact pothole-depth measurement, independent repair execution and guaranteed response times are outside the initial scope. Predictive maintenance will begin with historical trend summaries. Forecasting requires repeated, verified surveys and evaluation on later observations. Integration with actual municipal departments depends on their participation and configured access.
+
+6. LITERATURE SURVEY
+6.1 Smartphone-based road-damage detection
+Maeda et al. describe road-damage detection using deep neural networks and smartphone imagery [2]. Their work provides annotated road observations and examines model operation on different computing platforms. It establishes a relevant basis for camera-based screening. For this project, the useful lesson is that acquisition conditions and processing resources must be considered alongside the model, rather than assuming that all road photographs are equally suitable.
+6.2 Multi-national benchmark data
+Arya et al. introduce RDD2022, a dataset containing road images from six countries, including India, with annotations for four road-damage categories [1]. It provides a benchmark for examining detection and classification. The proposed project will use suitable annotated samples as evaluation material where permitted. Local road imagery will still be required because a benchmark result does not establish performance on the intended deployment network.
+6.3 Existing implementation resources
+The RoadDamageDetection implementation by oracl4 applies a YOLOv8 road-damage model to images and video [3]. It offers a candidate reference for the inference component. Before reuse, the team will check checkpoint availability, class definitions, dependencies and applicable licence terms. The detector will be treated as one component of the proposed system; its output must still pass through location association, scoring and municipal review.
+6.4 Cloud and data infrastructure
+AWS documentation describes services suitable for hosting compute workloads, retaining media, managing PostgreSQL databases and distributing notifications [4–7]. These services can support the proposed architecture, but the application must implement incident rules, user permissions and repair state transitions. Infrastructure services do not supply a complete municipal maintenance process by themselves.
+6.5 Project focus identified from the survey
+The reviewed resources support visual detection and deployment choices. This synopsis focuses on connecting those capabilities to a complete operational record: a detected observation becomes a reviewed incident, an assigned task and a verified closure. This is the proposed integration goal, not a claim that existing research has never addressed maintenance management. Evaluation will assess the combined workflow as well as the detector.
+
+7. PROPOSED SYSTEM
+The application will maintain an incident record for each distinct defect. Uploads retain evidence, capture time and location source. A background worker performs frame selection and inference, storing the label, bounding box, confidence and model version. Compatible repeated observations will be linked to existing cases; uncertain matches require review.
+An officer can correct findings, change priority, reject a report or approve action. Authorized staff assign accepted cases to maintenance teams, who record progress and completion evidence. An officer then reviews the before/after comparison and closes the case or requests further work.
+8. METHODOLOGY
+8.1 Acquisition, inference and location
+Uploads will be checked for supported format, usable resolution and timestamps. Video will be sampled at a configurable interval, with sampling settings recorded. The selected pretrained detector will process usable frames. GPS captured with the image or synchronized to the video timestamp will be associated with detections. Missing coordinates require correction or a clearly labelled manual location; ordinary image pixels are not a source of GPS coordinates.
+8.2 Severity, health score and priority
+Severity will use visible damage category and apparent extent to propose low, medium or high concern. Detection confidence measures model certainty and will remain separate from severity. A provisional 0–100 health score will summarize unique defects within a defined surveyed road segment, with higher values representing better observed condition. The score will display survey date and coverage; unsurveyed segments will remain unknown.
+Priority will combine configurable severity, road importance, report age and traffic exposure where reliable exposure data are supplied. Initial weights and thresholds will be reviewed against officer judgments and revised during validation. Missing exposure data will be labelled rather than invented. Neither score will be presented as an official pavement condition index or a guarantee of structural safety.
+8.3 Historical analysis
+Time-stamped surveys, verified findings and repair outcomes will support segment comparisons and preventive inspection suggestions. Forecasting requires sufficient comparable observations and validation on a later time period before operational use.
+
+9. COMPLETE WORKFLOW
+The sequence below preserves the defined process. Automated findings remain provisional until reviewed by authorized municipal staff.
+Stage
+Action and outcome
+1. Road image/video
+Capture or upload road evidence with timestamps and GPS metadata or a synchronized location log.
+2. AI damage detection
+Identify visible defects in usable images or sampled video frames and retain detection evidence.
+3. Classification
+Assign a supported damage category and flag uncertain observations for further review.
+4. GPS location
+Associate each detection with capture coordinates and a road segment; indicate location uncertainty.
+5. Severity analysis
+Estimate concern from visible defect type and apparent extent, independently of prediction confidence.
+6. Road health score
+Summarize deduplicated defects for a surveyed segment and display condition, coverage and survey date.
+7. Priority calculation
+Rank inspection needs using configurable severity, road importance, exposure and report-age factors.
+8. Municipal alert
+Send qualifying case details and evidence to configured municipal recipients; track notification status.
+9. Dashboard
+Show mapped incidents, evidence, scores and progress, with filters for jurisdiction and urgency.
+10. Officer verification
+Review or inspect the case, correct findings and accept, reject or merge the report.
+11. Maintenance assignment
+Authorized staff select a team, set a target date and record work instructions.
+12. Repair tracking
+Maintenance teams physically repair the road and record progress, notes and completion evidence.
+13. Before/after verification
+An officer compares evidence from the same location and approves closure or further work.
+14. Historical database
+Consolidate surveys, decisions and repair histories for reporting and recurring-defect analysis.
+15. Predictive maintenance
+Use verified historical trends to suggest preventive inspections; validate forecasts when sufficient data exist.
+Operational records are saved at every stage. Historical consolidation in stage 14 supports long-term analysis; it does not delay incident storage.
+
+10. MAJOR MODULES
+Acquisition and validation manage uploads, image quality and location metadata. AI analysis produces detections, labels and supporting evidence. Geospatial analysis groups duplicate observations and calculates provisional severity, condition and priority. Municipal operations provide notifications, dashboard review, assignment and repair tracking. Historical analytics retain recurring-damage and condition trends. Administration manages roles, jurisdictions, scoring settings and audit access.
+11. SUGGESTED TECHNICAL ARCHITECTURE
+A React client will communicate with a Python FastAPI service over HTTPS. The service will validate requests, enforce roles and queue processing jobs. A separate OpenCV/PyTorch worker will perform model inference and scoring. PostgreSQL with PostGIS will store structured and spatial records, while object storage will retain original and annotated media.
+
+Figure 1: Proposed application architecture
+For an AWS deployment, EC2 can host the application and inference workers, S3 can retain media, RDS for PostgreSQL can manage case records, and SNS can distribute configured notifications [4–7]. The chosen instance must be benchmarked for the required workload. Failed jobs and alerts will be retried with duplicate controls; sending an alert will not count as officer acknowledgment.
+Core records will include RoadSegment, Observation, Incident, Verification, WorkOrder, RepairEvidence and AuditEvent. Unique identifiers will link these records. Role checks will restrict approval and closure to authorized municipal staff. Database updates and media references will be recorded throughout the workflow; historical consolidation does not postpone operational storage.
+
+12. SOFTWARE AND HARDWARE REQUIREMENTS
+12.1 Software requirements
+Component
+Requirement
+Operating environment
+Linux server; a supported desktop operating system for development and browser access.
+Application layer
+Python, FastAPI, React and JavaScript; a browser map library for incident views.
+AI and image processing
+OpenCV, PyTorch and a compatible road-damage-trained detector checkpoint.
+Persistence
+PostgreSQL with PostGIS for spatial records; local or cloud object storage for media.
+Development and delivery
+Git, Docker, database tooling and a configured email or SMS notification service.
+12.2 Hardware requirements
+A modern four-core development computer with 16 GB RAM and approximately 50 GB of free SSD space is a suggested starting configuration. A compatible GPU is optional for faster inference; its memory requirement depends on the selected checkpoint, input resolution and batch size. CPU execution can support small image batches, but the throughput of video processing must be measured.
+Road capture requires a GPS-enabled smartphone or a camera accompanied by a synchronized GPS logger. A stable camera mount supports consistent imagery. Municipal staff need a browser-equipped computer or phone and network access. A dedicated embedded board or custom IoT device is not required for the initial prototype.
+12.3 Data and operational requirements
+Required inputs include road imagery, capture timestamps, location metadata, annotated evaluation samples and a defined road or jurisdiction map. The system also needs verified staff accounts, maintenance team records and configured notification recipients. Evaluation evidence must be kept separate from model selection data where practical. Media storage and compute capacity will be sized from measured upload volume and retention needs.
+The prototype will use restricted access to incident media, encrypted network connections, backups and an audit trail. Unnecessary identifying details in road imagery should be removed or obscured before wider viewing. Cloud credentials will be held in server configuration rather than embedded in the client application.
+
+13. EXPECTED RESULTS AND EVALUATION
+The expected outcome is a working prototype that accepts road imagery, creates annotated detections, associates locations and presents provisional scores in a municipal dashboard. It will demonstrate the movement of a case from pending verification through assignment, repair tracking and officer-approved closure. Every demonstrated case will retain its evidence, status history and responsible users.
+13.1 Evaluation plan
+Detection testing will report per-class precision, recall and mean average precision on held-out labelled imagery. Evaluation subsets will include different lighting, surfaces and defect appearances where data are available. Adjacent video frames and repeated views of the same road sequence will remain in the same split to reduce leakage. Missed defects and false alarms will be reviewed as separate error categories.
+Location assessment will compare reported coordinates with verified reference locations and inspect road-segment assignment errors. Processing tests will measure upload-to-result delay on the stated hardware. Scoring will be compared with independently recorded officer judgments; disagreements will guide rule revision. Duplicate grouping will be checked for both repeated cases and incorrectly merged nearby defects.
+Workflow scenarios will include acceptance, rejection, reassignment, alert failure, repair completion, reopened work and unauthorized update attempts. Expected behaviour includes retained audit history, visible failure status and closure only after authorized verification. Results will be documented from actual tests; this synopsis does not assert achieved accuracy, successful municipal adoption or guaranteed repair speed.
+14. ADVANTAGES
+The proposed system connects detection to follow-up in a single record, helping staff determine what has been observed and what action remains pending. Shared evidence and duplicate controls can reduce repeated administrative handling. Configurable scores provide a consistent starting point for inspection planning while allowing officers to explain and record overrides.
+Camera-based acquisition and reuse of an existing detector support a practical prototype. Before/after evidence improves the traceability of closure decisions. Retaining survey and repair history supports recurring-defect review and future planning. These benefits depend on the quality of observations, staff participation and validation of the complete workflow.
+
+15. LIMITATIONS
+Detection quality may decline under shadows, standing water, occlusion, motion blur or unfamiliar pavement appearance. Small defects can be missed, and road markings or repaired patches may be confused with damage. An ordinary monocular camera cannot reliably establish physical pothole depth or the structural condition of the pavement. Findings therefore remain inspection support rather than engineering certification.
+GPS error, timestamp mismatch and incomplete road maps can associate a case with the wrong location. Repeated frames may inflate defect counts if duplicate grouping fails. Condition scores are only meaningful for defined segments with adequate coverage and comparable observations. Differences in camera viewpoint and survey conditions can affect apparent damage extent and before/after comparisons.
+Network outages, compute limits and notification failures may delay results. Sending an alert does not ensure that it has been read or acted upon. Maintenance response depends on municipal staffing, materials, budgets and scheduling. Sparse or inconsistent historical records cannot support reliable forecasts. Data retention, access controls and ongoing model evaluation require operational attention.
+16. FUTURE SCOPE
+Future development can add offline capture with later synchronization, regional-language interfaces and integration with existing municipal work-order applications. Improved image segmentation may support more precise visible-area estimates. Additional sensing or calibrated capture methods could be evaluated for physical measurements, subject to independent validation.
+A later predictive maintenance component can use repeated segment surveys, verified deterioration observations and repair outcomes to estimate risk over a defined future period. Forecasts should be evaluated on later data and compared with a simple trend-based baseline. When the history is insufficient, the application should display descriptive trends and inspection suggestions instead of unsupported numerical forecasts.
+Further extensions may include recurring-defect summaries, workload planning and comparison of repair outcomes across time. Officer corrections can form a curated dataset for optional model adaptation. Any future automation should preserve the separation between AI recommendations, authorized municipal decisions and physical maintenance work.
+
+17. CONCLUSION
+The proposed project provides a complete information workflow for road-damage detection and municipal maintenance management. It begins with road imagery, develops a provisional geolocated assessment and supports inspection priority, notification, officer review, assignment, repair tracking and verified closure. Historical records create a foundation for understanding recurring problems and planning later preventive inspections.
+The system detects, analyzes, locates, prioritizes and alerts. Municipal officers verify the evidence, authorize work and approve closure; maintenance teams physically complete the repairs. This division of responsibility is central to the design. The project will be evaluated through measured detection performance, location checks, scoring review and end-to-end workflow tests. Its value will depend on reliable evidence and accountable use rather than unverified claims of perfect accuracy or fully autonomous maintenance.
+18. REFERENCES
+[1] D. Arya et al. (2022). RDD2022: A multi-national image dataset for automatic Road Damage Detection. arXiv:2209.08538.
+[2] H. Maeda et al. (2018). Road Damage Detection Using Deep Neural Networks with Images Captured Through a Smartphone. arXiv:1801.09454.
+[3] oracl4. RoadDamageDetection: road-damage detection application using a YOLOv8 model trained on RDD2022. GitHub repository.
+[4] Amazon Web Services. What is Amazon EC2? Amazon EC2 User Guide.
+[5] Amazon Web Services. What is Amazon S3? Amazon S3 User Guide.
+[6] Amazon Web Services. Amazon RDS for PostgreSQL. RDS User Guide.
+[7] Amazon Web Services. What is Amazon SNS? Amazon SNS Developer Guide.

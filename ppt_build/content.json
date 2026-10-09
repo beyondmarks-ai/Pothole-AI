@@ -1,0 +1,91 @@
+[
+  {
+    "title": "AI-Based Road\nDamage Detection",
+    "subtitle": "Municipal Maintenance Management System",
+    "section": "MAJOR PROJECT SYNOPSIS · 2025–26",
+    "notes": "Introduce the proposed project as a complete road maintenance information cycle. A detected defect is an observation; municipal personnel verify it, authorize repairs and approve closure. Team: Bhagyashree (3DG23CS007), Pallavi (3DG23CS028), Pratiksha (3DG23CS031), Vakilata (3DG23CS059). Guide: Asst. Prof. Pooja Hebbale. Government Engineering College, Bidar; Department of Computer Science and Engineering; VTU Belagavi.\n[Sources]\nRoad_Damage_Detection_16_Page_Synopsis.docx — title page and abstract. Institution logos extracted from the same user-provided document.\n[/Sources]"
+  },
+  {
+    "title": "A photo alone does not resolve a complaint",
+    "section": "PROBLEM STATEMENT",
+    "lead": "Road damage needs a reliable path from observation to action.",
+    "items": [["Incomplete location", "A photo or message may not identify the correct road segment."], ["Unclear priority", "Separate reports make inspection and repair planning difficult."], ["Missing follow-up", "Without a shared record, review, assignment and closure are hard to trace."]],
+    "bottom": "The project connects evidence, location, responsibility and repair status.",
+    "notes": "Explain the problem without asserting that every municipality uses the same process. The synopsis describes risks in a process based on disconnected photographs, messages and periodic inspection. The project addresses integration and traceability.\n[Sources]\nUser-provided synopsis, sections 1–3.\n[/Sources]"
+  },
+  {
+    "title": "Four objectives guide the prototype",
+    "section": "OBJECTIVES & SCOPE",
+    "items": [["Detect and locate", "Identify supported defects in images or sampled video frames; attach GPS and capture time."], ["Prioritize inspections", "Estimate visible severity and explain why a case needs attention."], ["Coordinate repairs", "Support officer review, team assignment and verified closure."], ["Preserve road history", "Retain observations, decisions and repair evidence for future monitoring."]],
+    "bottom": "Initial scope: a defined road network, image uploads and batch video analysis.",
+    "notes": "Clarify that the initial prototype targets potholes and supported crack classes. It does not measure exact pothole depth or certify structural safety. The demonstration jurisdiction will be defined before evaluation.\n[Sources]\nUser-provided synopsis, sections 4–5.\n[/Sources]"
+  },
+  {
+    "title": "Existing detection work supports the design",
+    "section": "LITERATURE & PROJECT FOCUS",
+    "rows": [["Maeda et al. · 2018", "Smartphone road imagery", "Capture conditions matter."], ["Arya et al. · RDD2022", "Annotated damage benchmark", "Evaluate locally as well."], ["oracl4 · YOLOv8 project", "Candidate model implementation", "Check labels, licence and weights."]],
+    "bottom": "Our focus: connect detection to municipal review, repair and an auditable history.",
+    "notes": "The literature survey supports a pretrained-model approach rather than training a detector from scratch. RDD2022 contains imagery from six countries, including India, and four road-damage categories. A benchmark score does not establish performance on the demonstration network. The integration focus is not a claim that prior research has never addressed maintenance management. This slide summarizes the literature as described in the supplied synopsis.\n[Sources]\nUser-provided synopsis, sections 6 and 18.\nMaeda et al., Road Damage Detection Using Deep Neural Networks with Images Captured Through a Smartphone (2018), https://arxiv.org/abs/1801.09454\nArya et al., RDD2022: A multi-national image dataset for automatic Road Damage Detection (2022), https://arxiv.org/abs/2209.08538\noracl4, RoadDamageDetection repository, https://github.com/oracl4/RoadDamageDetection\n[/Sources]"
+  },
+  {
+    "title": "How the system works",
+    "section": "COMPLETE WORKFLOW",
+    "groups": [
+      {"title":"Capture & analyze", "steps":["1  Upload photo/video + GPS", "2  Detect potholes and cracks", "3  Estimate type, severity\n    and priority"]},
+      {"title":"Review & assign", "steps":["4  Show photo and map\n    on the dashboard", "5  Officer verifies the result", "6  Assign the approved case\n    to a maintenance team"]},
+      {"title":"Repair & retain", "steps":["7  Repair and upload\n    after-repair photos", "8  Officer checks and closes", "9  Retain reports, repairs\n    and road history"]}
+    ],
+    "bottom": "AI recommendations remain provisional until an officer reviews them.",
+    "notes": "Walk through all nine steps in the user's workflow. Steps 1–3 prepare evidence; steps 4–6 lead to an authorized work order; steps 7–9 document completion and preserve history. An officer can reject or merge a report and return a repair for further work. Data are stored throughout the process, not only at step 9.\n[Sources]\nUser's nine-step workflow in the conversation.\nUser-provided synopsis, sections 7–9.\n[/Sources]"
+  },
+  {
+    "title": "The AI creates an evidence-backed report",
+    "section": "DETECTION METHODOLOGY",
+    "items": [["Validate the input", "Check file quality and capture time; sample usable video frames."], ["Run the detector", "Retain the damage label, bounding box, confidence and model version."], ["Attach the location", "Use capture GPS or a synchronized log; group repeated observations."]],
+    "classes": "Potholes · Longitudinal cracks\nTransverse cracks · Alligator cracks",
+    "bottom": "Missing GPS needs correction or a clearly labelled manual location.",
+    "notes": "Use a road-damage-trained YOLOv8 checkpoint as a candidate, subject to validation and class support. Image pixels do not provide geographic coordinates. Associate video detections with synchronized timestamps and GPS. Deduplication must preserve each observation while preventing repeated frames from inflating the case count. Confidence describes model certainty, not physical severity.\n[Sources]\nUser-provided synopsis, sections 5, 7 and 8.1; candidate implementation cited in section 18, reference 3.\n[/Sources]"
+  },
+  {
+    "title": "Severity and priority serve different purposes",
+    "section": "ASSESSMENT & ROAD CONDITION",
+    "items": [["Severity", "How concerning does the visible damage appear?", "Propose low, medium or high concern from damage type and apparent extent."], ["Priority", "Which case should be inspected first?", "Combine severity, road importance, report age and reliable traffic exposure."], ["Road health", "What was observed on this segment?", "Use a provisional 0–100 score with survey date and coverage; higher means better."]],
+    "bottom": "Confidence is separate from severity. Officers can review scores and record overrides.",
+    "notes": "Scoring rules and weights are configurable and must be compared with officer judgments. Do not invent traffic data. The health score applies to a defined surveyed segment using unique defects; unsurveyed segments remain unknown. The score is not an official pavement condition index. Ordinary monocular images cannot reliably establish exact pothole depth or structural safety.\n[Sources]\nUser-provided synopsis, sections 8.2, 13.1 and 15.\n[/Sources]"
+  },
+  {
+    "title": "The proposed architecture separates each role",
+    "section": "SYSTEM DESIGN",
+    "bottom": "Structured cases live in the database; original and annotated media live in object storage.",
+    "notes": "The React client communicates over HTTPS with a FastAPI service that enforces roles and handles case workflow. A queue dispatches background inference jobs to an OpenCV/PyTorch worker. PostgreSQL with PostGIS stores linked spatial and operational records; object storage holds media. A notification worker alerts configured recipients. Possible AWS deployment: EC2 for services and workers, S3 for media, RDS PostgreSQL for records, SNS for notifications. Cloud deployment is an option, not a claim of an existing installation. Core records include RoadSegment, Observation, Incident, Verification, WorkOrder, RepairEvidence and AuditEvent.\n[Sources]\nUser-provided synopsis, sections 10–12 and Figure 1.\n[/Sources]"
+  },
+  {
+    "title": "Officers control approval and closure",
+    "section": "MUNICIPAL OPERATIONS",
+    "items": [["Review the evidence", "Inspect the photo, map, predicted damage and suggested priority."], ["Decide and assign", "Accept, correct, reject or merge; assign an approved case with a target date."], ["Verify the repair", "Compare before/after evidence from the same location; close or return for more work."]],
+    "bottom": "Every decision retains the responsible user, timestamp and reason.",
+    "notes": "Maintenance teams physically repair roads and upload progress, notes and completion photographs. Only authorized municipal personnel approve and close cases. The dashboard will filter incidents by jurisdiction, urgency and progress. An alert being sent does not count as officer acknowledgment. Demonstrate returned work and reopened cases as part of testing.\n[Sources]\nUser-provided synopsis, sections 7, 9, 11 and 13.1; user's workflow steps 4–8.\n[/Sources]"
+  },
+  {
+    "title": "Build and validate the prototype in stages",
+    "section": "IMPLEMENTATION & REQUIREMENTS",
+    "items": [["1  Detection baseline", "Confirm model classes; test annotated images and video sampling."], ["2  Incident pipeline", "Connect uploads, GPS, duplicate grouping and provisional scores."], ["3  Municipal workflow", "Add role-based review, assignment, repair evidence and history."], ["4  End-to-end validation", "Measure quality and delay; test failures and closure controls."]],
+    "bottom": "Starting setup: GPS phone · 4-core PC · 16 GB RAM · ~50 GB SSD · optional GPU",
+    "notes": "This implementation sequence is a proposed organization of the work, not a schedule already specified in the synopsis. Software: React, FastAPI, Python, OpenCV, PyTorch, PostgreSQL/PostGIS, object storage and a map library; Git and Docker for development. A GPU is optional for faster inference. CPU throughput must be measured. No custom IoT board is required.\n[Sources]\nUser-provided synopsis, sections 11–13. Implementation milestones synthesized from its proposed modules and evaluation plan.\n[/Sources]"
+  },
+  {
+    "title": "Evaluation must cover AI and the full workflow",
+    "section": "VALIDATION PLAN",
+    "rows": [["Detection", "Per-class precision, recall and mAP on held-out images"], ["Location & duplicates", "GPS/road-segment errors; missed or incorrect merges"], ["Scoring & speed", "Officer agreement; upload-to-result delay on stated hardware"], ["Municipal workflow", "Accept, reject, assign, repair, reopen and authorize closure"]],
+    "bottom": "Keep repeated road views in one data split. Report actual results after testing.",
+    "notes": "Evaluate across different lighting, pavement and defect appearances where data are available. Keep adjacent video frames and repeated views of a road sequence together in train/validation/test splits to reduce leakage. Compare locations with reference positions and scores with independent officer judgments. Include alert failures, unauthorized updates and retained audit history. No accuracy percentage, achieved speed or municipal deployment is claimed by the synopsis.\n[Sources]\nUser-provided synopsis, section 13.1.\n[/Sources]"
+  },
+  {
+    "title": "A traceable path to verified road repairs",
+    "section": "EXPECTED OUTCOME & FUTURE SCOPE",
+    "lead": "One record connects each road report to a verified repair.",
+    "items": [["Expected outcome", "Mapped incidents, clear ownership and before/after repair history."], ["Practical limits", "Lighting, GPS quality and municipal participation affect reliability."], ["Future scope", "Offline capture, regional languages and forecasting after sufficient verified history."]],
+    "bottom": "Next milestone: demonstrate one complete case from upload to officer-approved closure.",
+    "notes": "Resolve the opening problem: a report becomes actionable when location, evidence, responsibility and completion are linked. Historical records initially support recurring-damage review and trend summaries. Predictive forecasting needs sufficient comparable longitudinal observations and evaluation on later data. Invite the guide's feedback on the demonstration area, priority rules and evaluation dataset.\n[Sources]\nUser-provided synopsis, sections 13–17.\n[/Sources]"
+  }
+]

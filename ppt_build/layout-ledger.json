@@ -1,0 +1,1752 @@
+﻿[
+    {
+        "size":  12,
+        "w":  820,
+        "y":  26,
+        "name":  "TextBox 1",
+        "x":  48,
+        "slide":  1,
+        "text":  "MAJOR PROJECT SYNOPSIS · 2025–26",
+        "h":  22
+    },
+    {
+        "size":  10,
+        "w":  700,
+        "y":  510,
+        "name":  "TextBox 3",
+        "x":  48,
+        "slide":  1,
+        "text":  "ROAD DAMAGE DETECTION  /  GECB",
+        "h":  18
+    },
+    {
+        "size":  10,
+        "w":  76,
+        "y":  510,
+        "name":  "TextBox 4",
+        "x":  836,
+        "slide":  1,
+        "text":  "01 / 12",
+        "h":  18
+    },
+    {
+        "size":  19,
+        "w":  770,
+        "y":  60,
+        "name":  "TextBox 7",
+        "x":  48,
+        "slide":  1,
+        "text":  "Government Engineering College, Bidar",
+        "h":  28
+    },
+    {
+        "size":  16,
+        "w":  750,
+        "y":  91,
+        "name":  "TextBox 8",
+        "x":  48,
+        "slide":  1,
+        "text":  "Computer Science \u0026 Engineering  ·  VTU Belagavi",
+        "h":  25
+    },
+    {
+        "size":  50,
+        "w":  864,
+        "y":  144,
+        "name":  "TextBox 9",
+        "x":  48,
+        "slide":  1,
+        "text":  "AI-Based Road\nDamage Detection",
+        "h":  122
+    },
+    {
+        "size":  25,
+        "w":  864,
+        "y":  282,
+        "name":  "TextBox 10",
+        "x":  48,
+        "slide":  1,
+        "text":  "Municipal Maintenance Management System",
+        "h":  42
+    },
+    {
+        "size":  16,
+        "w":  470,
+        "y":  369,
+        "name":  "TextBox 12",
+        "x":  48,
+        "slide":  1,
+        "text":  "Presented by",
+        "h":  24
+    },
+    {
+        "size":  16,
+        "w":  360,
+        "y":  403,
+        "name":  "TextBox 13",
+        "x":  48,
+        "slide":  1,
+        "text":  "Bhagyashree  ·  3DG23CS007\nPallavi  ·  3DG23CS028",
+        "h":  57
+    },
+    {
+        "size":  16,
+        "w":  325,
+        "y":  403,
+        "name":  "TextBox 14",
+        "x":  353,
+        "slide":  1,
+        "text":  "Pratiksha  ·  3DG23CS031\nVakilata  ·  3DG23CS059",
+        "h":  57
+    },
+    {
+        "size":  16,
+        "w":  222,
+        "y":  369,
+        "name":  "TextBox 15",
+        "x":  690,
+        "slide":  1,
+        "text":  "Under the guidance of",
+        "h":  24
+    },
+    {
+        "size":  18,
+        "w":  222,
+        "y":  403,
+        "name":  "TextBox 16",
+        "x":  690,
+        "slide":  1,
+        "text":  "Asst. Prof.\nPooja Hebbale",
+        "h":  62
+    },
+    {
+        "size":  12,
+        "w":  820,
+        "y":  26,
+        "name":  "TextBox 1",
+        "x":  48,
+        "slide":  2,
+        "text":  "PROBLEM STATEMENT",
+        "h":  22
+    },
+    {
+        "size":  35,
+        "w":  864,
+        "y":  69,
+        "name":  "TextBox 2",
+        "x":  48,
+        "slide":  2,
+        "text":  "A photo alone does not resolve a complaint",
+        "h":  89
+    },
+    {
+        "size":  10,
+        "w":  700,
+        "y":  510,
+        "name":  "TextBox 4",
+        "x":  48,
+        "slide":  2,
+        "text":  "ROAD DAMAGE DETECTION  /  GECB",
+        "h":  18
+    },
+    {
+        "size":  10,
+        "w":  76,
+        "y":  510,
+        "name":  "TextBox 5",
+        "x":  836,
+        "slide":  2,
+        "text":  "02 / 12",
+        "h":  18
+    },
+    {
+        "size":  22,
+        "w":  864,
+        "y":  160,
+        "name":  "TextBox 6",
+        "x":  48,
+        "slide":  2,
+        "text":  "Road damage needs a reliable path from observation to action.",
+        "h":  50
+    },
+    {
+        "size":  24,
+        "w":  264,
+        "y":  238,
+        "name":  "TextBox 7",
+        "x":  48,
+        "slide":  2,
+        "text":  "Incomplete location",
+        "h":  60
+    },
+    {
+        "size":  18,
+        "w":  264,
+        "y":  304,
+        "name":  "TextBox 8",
+        "x":  48,
+        "slide":  2,
+        "text":  "A photo or message may not identify the correct road segment.",
+        "h":  122
+    },
+    {
+        "size":  24,
+        "w":  264,
+        "y":  238,
+        "name":  "TextBox 9",
+        "x":  348,
+        "slide":  2,
+        "text":  "Unclear priority",
+        "h":  60
+    },
+    {
+        "size":  18,
+        "w":  264,
+        "y":  304,
+        "name":  "TextBox 10",
+        "x":  348,
+        "slide":  2,
+        "text":  "Separate reports make inspection and repair planning difficult.",
+        "h":  122
+    },
+    {
+        "size":  24,
+        "w":  264,
+        "y":  238,
+        "name":  "TextBox 11",
+        "x":  648,
+        "slide":  2,
+        "text":  "Missing follow-up",
+        "h":  60
+    },
+    {
+        "size":  18,
+        "w":  264,
+        "y":  304,
+        "name":  "TextBox 12",
+        "x":  648,
+        "slide":  2,
+        "text":  "Without a shared record, review, assignment and closure are hard to trace.",
+        "h":  122
+    },
+    {
+        "size":  16,
+        "w":  864,
+        "y":  460,
+        "name":  "TextBox 14",
+        "x":  48,
+        "slide":  2,
+        "text":  "The project connects evidence, location, responsibility and repair status.",
+        "h":  38
+    },
+    {
+        "size":  12,
+        "w":  820,
+        "y":  26,
+        "name":  "TextBox 1",
+        "x":  48,
+        "slide":  3,
+        "text":  "OBJECTIVES \u0026 SCOPE",
+        "h":  22
+    },
+    {
+        "size":  35,
+        "w":  864,
+        "y":  69,
+        "name":  "TextBox 2",
+        "x":  48,
+        "slide":  3,
+        "text":  "Four objectives guide the prototype",
+        "h":  89
+    },
+    {
+        "size":  10,
+        "w":  700,
+        "y":  510,
+        "name":  "TextBox 4",
+        "x":  48,
+        "slide":  3,
+        "text":  "ROAD DAMAGE DETECTION  /  GECB",
+        "h":  18
+    },
+    {
+        "size":  10,
+        "w":  76,
+        "y":  510,
+        "name":  "TextBox 5",
+        "x":  836,
+        "slide":  3,
+        "text":  "03 / 12",
+        "h":  18
+    },
+    {
+        "size":  24,
+        "w":  48,
+        "y":  166,
+        "name":  "TextBox 6",
+        "x":  48,
+        "slide":  3,
+        "text":  "01",
+        "h":  36
+    },
+    {
+        "size":  24,
+        "w":  296,
+        "y":  166,
+        "name":  "TextBox 7",
+        "x":  111,
+        "slide":  3,
+        "text":  "Detect and locate",
+        "h":  35
+    },
+    {
+        "size":  18,
+        "w":  487,
+        "y":  167,
+        "name":  "TextBox 8",
+        "x":  425,
+        "slide":  3,
+        "text":  "Identify supported defects in images or sampled video frames; attach GPS and capture time.",
+        "h":  56
+    },
+    {
+        "size":  24,
+        "w":  48,
+        "y":  233,
+        "name":  "TextBox 10",
+        "x":  48,
+        "slide":  3,
+        "text":  "02",
+        "h":  36
+    },
+    {
+        "size":  24,
+        "w":  296,
+        "y":  233,
+        "name":  "TextBox 11",
+        "x":  111,
+        "slide":  3,
+        "text":  "Prioritize inspections",
+        "h":  35
+    },
+    {
+        "size":  18,
+        "w":  487,
+        "y":  234,
+        "name":  "TextBox 12",
+        "x":  425,
+        "slide":  3,
+        "text":  "Estimate visible severity and explain why a case needs attention.",
+        "h":  56
+    },
+    {
+        "size":  24,
+        "w":  48,
+        "y":  300,
+        "name":  "TextBox 14",
+        "x":  48,
+        "slide":  3,
+        "text":  "03",
+        "h":  36
+    },
+    {
+        "size":  24,
+        "w":  296,
+        "y":  300,
+        "name":  "TextBox 15",
+        "x":  111,
+        "slide":  3,
+        "text":  "Coordinate repairs",
+        "h":  35
+    },
+    {
+        "size":  18,
+        "w":  487,
+        "y":  301,
+        "name":  "TextBox 16",
+        "x":  425,
+        "slide":  3,
+        "text":  "Support officer review, team assignment and verified closure.",
+        "h":  56
+    },
+    {
+        "size":  24,
+        "w":  48,
+        "y":  367,
+        "name":  "TextBox 18",
+        "x":  48,
+        "slide":  3,
+        "text":  "04",
+        "h":  36
+    },
+    {
+        "size":  24,
+        "w":  296,
+        "y":  367,
+        "name":  "TextBox 19",
+        "x":  111,
+        "slide":  3,
+        "text":  "Preserve road history",
+        "h":  35
+    },
+    {
+        "size":  18,
+        "w":  487,
+        "y":  368,
+        "name":  "TextBox 20",
+        "x":  425,
+        "slide":  3,
+        "text":  "Retain observations, decisions and repair evidence for future monitoring.",
+        "h":  56
+    },
+    {
+        "size":  16,
+        "w":  864,
+        "y":  460,
+        "name":  "TextBox 22",
+        "x":  48,
+        "slide":  3,
+        "text":  "Initial scope: a defined road network, image uploads and batch video analysis.",
+        "h":  38
+    },
+    {
+        "size":  12,
+        "w":  820,
+        "y":  26,
+        "name":  "TextBox 1",
+        "x":  48,
+        "slide":  4,
+        "text":  "LITERATURE \u0026 PROJECT FOCUS",
+        "h":  22
+    },
+    {
+        "size":  35,
+        "w":  864,
+        "y":  69,
+        "name":  "TextBox 2",
+        "x":  48,
+        "slide":  4,
+        "text":  "Existing research supports the design",
+        "h":  89
+    },
+    {
+        "size":  10,
+        "w":  700,
+        "y":  510,
+        "name":  "TextBox 4",
+        "x":  48,
+        "slide":  4,
+        "text":  "ROAD DAMAGE DETECTION  /  GECB",
+        "h":  18
+    },
+    {
+        "size":  10,
+        "w":  76,
+        "y":  510,
+        "name":  "TextBox 5",
+        "x":  836,
+        "slide":  4,
+        "text":  "04 / 12",
+        "h":  18
+    },
+    {
+        "size":  18,
+        "w":  270,
+        "y":  170,
+        "name":  "TextBox 6",
+        "x":  48,
+        "slide":  4,
+        "text":  "Research / resource",
+        "h":  31
+    },
+    {
+        "size":  18,
+        "w":  269,
+        "y":  170,
+        "name":  "TextBox 7",
+        "x":  353,
+        "slide":  4,
+        "text":  "What it contributes",
+        "h":  31
+    },
+    {
+        "size":  18,
+        "w":  253,
+        "y":  170,
+        "name":  "TextBox 8",
+        "x":  659,
+        "slide":  4,
+        "text":  "Design implication",
+        "h":  31
+    },
+    {
+        "size":  20,
+        "w":  270,
+        "y":  228,
+        "name":  "TextBox 10",
+        "x":  48,
+        "slide":  4,
+        "text":  "Maeda et al. · 2018",
+        "h":  53
+    },
+    {
+        "size":  18,
+        "w":  267,
+        "y":  228,
+        "name":  "TextBox 11",
+        "x":  353,
+        "slide":  4,
+        "text":  "Smartphone road imagery",
+        "h":  53
+    },
+    {
+        "size":  18,
+        "w":  253,
+        "y":  228,
+        "name":  "TextBox 12",
+        "x":  659,
+        "slide":  4,
+        "text":  "Capture conditions matter.",
+        "h":  53
+    },
+    {
+        "size":  20,
+        "w":  270,
+        "y":  293,
+        "name":  "TextBox 14",
+        "x":  48,
+        "slide":  4,
+        "text":  "Arya et al. · RDD2022",
+        "h":  53
+    },
+    {
+        "size":  18,
+        "w":  267,
+        "y":  293,
+        "name":  "TextBox 15",
+        "x":  353,
+        "slide":  4,
+        "text":  "Annotated damage benchmark",
+        "h":  53
+    },
+    {
+        "size":  18,
+        "w":  253,
+        "y":  293,
+        "name":  "TextBox 16",
+        "x":  659,
+        "slide":  4,
+        "text":  "Evaluate locally as well.",
+        "h":  53
+    },
+    {
+        "size":  20,
+        "w":  270,
+        "y":  358,
+        "name":  "TextBox 18",
+        "x":  48,
+        "slide":  4,
+        "text":  "oracl4 · YOLOv8 project",
+        "h":  53
+    },
+    {
+        "size":  18,
+        "w":  267,
+        "y":  358,
+        "name":  "TextBox 19",
+        "x":  353,
+        "slide":  4,
+        "text":  "Candidate model implementation",
+        "h":  53
+    },
+    {
+        "size":  18,
+        "w":  253,
+        "y":  358,
+        "name":  "TextBox 20",
+        "x":  659,
+        "slide":  4,
+        "text":  "Check labels, licence and weights.",
+        "h":  53
+    },
+    {
+        "size":  16,
+        "w":  864,
+        "y":  460,
+        "name":  "TextBox 23",
+        "x":  48,
+        "slide":  4,
+        "text":  "Our focus: connect detection to municipal review, repair and an auditable history.",
+        "h":  38
+    },
+    {
+        "size":  12,
+        "w":  820,
+        "y":  26,
+        "name":  "TextBox 1",
+        "x":  48,
+        "slide":  5,
+        "text":  "COMPLETE WORKFLOW",
+        "h":  22
+    },
+    {
+        "size":  35,
+        "w":  864,
+        "y":  69,
+        "name":  "TextBox 2",
+        "x":  48,
+        "slide":  5,
+        "text":  "How the system works",
+        "h":  89
+    },
+    {
+        "size":  10,
+        "w":  700,
+        "y":  510,
+        "name":  "TextBox 4",
+        "x":  48,
+        "slide":  5,
+        "text":  "ROAD DAMAGE DETECTION  /  GECB",
+        "h":  18
+    },
+    {
+        "size":  10,
+        "w":  76,
+        "y":  510,
+        "name":  "TextBox 5",
+        "x":  836,
+        "slide":  5,
+        "text":  "05 / 12",
+        "h":  18
+    },
+    {
+        "size":  24,
+        "w":  264,
+        "y":  173,
+        "name":  "TextBox 7",
+        "x":  48,
+        "slide":  5,
+        "text":  "Capture \u0026 analyze",
+        "h":  42
+    },
+    {
+        "size":  18,
+        "w":  270,
+        "y":  249,
+        "name":  "TextBox 8",
+        "x":  48,
+        "slide":  5,
+        "text":  "1  Upload photo/video + GPS",
+        "h":  59
+    },
+    {
+        "size":  18,
+        "w":  270,
+        "y":  312,
+        "name":  "TextBox 9",
+        "x":  48,
+        "slide":  5,
+        "text":  "2  Detect potholes and cracks",
+        "h":  59
+    },
+    {
+        "size":  18,
+        "w":  270,
+        "y":  375,
+        "name":  "TextBox 10",
+        "x":  48,
+        "slide":  5,
+        "text":  "3  Estimate type, severity\n    and priority",
+        "h":  59
+    },
+    {
+        "size":  24,
+        "w":  264,
+        "y":  173,
+        "name":  "TextBox 11",
+        "x":  348,
+        "slide":  5,
+        "text":  "Review \u0026 assign",
+        "h":  42
+    },
+    {
+        "size":  18,
+        "w":  270,
+        "y":  249,
+        "name":  "TextBox 12",
+        "x":  348,
+        "slide":  5,
+        "text":  "4  Show photo and map\n    on the dashboard",
+        "h":  59
+    },
+    {
+        "size":  18,
+        "w":  270,
+        "y":  312,
+        "name":  "TextBox 13",
+        "x":  348,
+        "slide":  5,
+        "text":  "5  Officer verifies the result",
+        "h":  59
+    },
+    {
+        "size":  18,
+        "w":  270,
+        "y":  375,
+        "name":  "TextBox 14",
+        "x":  348,
+        "slide":  5,
+        "text":  "6  Assign the approved case\n    to a maintenance team",
+        "h":  59
+    },
+    {
+        "size":  24,
+        "w":  264,
+        "y":  173,
+        "name":  "TextBox 15",
+        "x":  648,
+        "slide":  5,
+        "text":  "Repair \u0026 retain",
+        "h":  42
+    },
+    {
+        "size":  18,
+        "w":  270,
+        "y":  249,
+        "name":  "TextBox 16",
+        "x":  648,
+        "slide":  5,
+        "text":  "7  Repair and upload\n    after-repair photos",
+        "h":  59
+    },
+    {
+        "size":  18,
+        "w":  270,
+        "y":  312,
+        "name":  "TextBox 17",
+        "x":  648,
+        "slide":  5,
+        "text":  "8  Officer checks and closes",
+        "h":  59
+    },
+    {
+        "size":  18,
+        "w":  270,
+        "y":  375,
+        "name":  "TextBox 18",
+        "x":  648,
+        "slide":  5,
+        "text":  "9  Retain reports, repairs\n    and road history",
+        "h":  59
+    },
+    {
+        "size":  16,
+        "w":  864,
+        "y":  460,
+        "name":  "TextBox 20",
+        "x":  48,
+        "slide":  5,
+        "text":  "AI recommendations remain provisional until an officer reviews them.",
+        "h":  38
+    },
+    {
+        "size":  12,
+        "w":  820,
+        "y":  26,
+        "name":  "TextBox 1",
+        "x":  48,
+        "slide":  6,
+        "text":  "DETECTION METHODOLOGY",
+        "h":  22
+    },
+    {
+        "size":  35,
+        "w":  864,
+        "y":  69,
+        "name":  "TextBox 2",
+        "x":  48,
+        "slide":  6,
+        "text":  "The AI creates an evidence-backed report",
+        "h":  89
+    },
+    {
+        "size":  10,
+        "w":  700,
+        "y":  510,
+        "name":  "TextBox 4",
+        "x":  48,
+        "slide":  6,
+        "text":  "ROAD DAMAGE DETECTION  /  GECB",
+        "h":  18
+    },
+    {
+        "size":  10,
+        "w":  76,
+        "y":  510,
+        "name":  "TextBox 5",
+        "x":  836,
+        "slide":  6,
+        "text":  "06 / 12",
+        "h":  18
+    },
+    {
+        "size":  24,
+        "w":  508,
+        "y":  171,
+        "name":  "TextBox 6",
+        "x":  48,
+        "slide":  6,
+        "text":  "Validate the input",
+        "h":  34
+    },
+    {
+        "size":  18,
+        "w":  508,
+        "y":  207,
+        "name":  "TextBox 7",
+        "x":  48,
+        "slide":  6,
+        "text":  "Check file quality and capture time; sample usable video frames.",
+        "h":  53
+    },
+    {
+        "size":  24,
+        "w":  508,
+        "y":  259,
+        "name":  "TextBox 8",
+        "x":  48,
+        "slide":  6,
+        "text":  "Run the detector",
+        "h":  34
+    },
+    {
+        "size":  18,
+        "w":  508,
+        "y":  295,
+        "name":  "TextBox 9",
+        "x":  48,
+        "slide":  6,
+        "text":  "Retain the damage label, bounding box, confidence and model version.",
+        "h":  53
+    },
+    {
+        "size":  24,
+        "w":  508,
+        "y":  347,
+        "name":  "TextBox 10",
+        "x":  48,
+        "slide":  6,
+        "text":  "Attach the location",
+        "h":  34
+    },
+    {
+        "size":  18,
+        "w":  508,
+        "y":  383,
+        "name":  "TextBox 11",
+        "x":  48,
+        "slide":  6,
+        "text":  "Use capture GPS or a synchronized log; group repeated observations.",
+        "h":  53
+    },
+    {
+        "size":  24,
+        "w":  277,
+        "y":  173,
+        "name":  "TextBox 13",
+        "x":  635,
+        "slide":  6,
+        "text":  "Target damage classes",
+        "h":  60
+    },
+    {
+        "size":  20,
+        "w":  277,
+        "y":  255,
+        "name":  "TextBox 14",
+        "x":  635,
+        "slide":  6,
+        "text":  "Potholes\nLongitudinal cracks\nTransverse cracks\nAlligator cracks",
+        "h":  139
+    },
+    {
+        "size":  16,
+        "w":  277,
+        "y":  402,
+        "name":  "TextBox 15",
+        "x":  635,
+        "slide":  6,
+        "text":  "Subject to checkpoint support.",
+        "h":  32
+    },
+    {
+        "size":  16,
+        "w":  864,
+        "y":  460,
+        "name":  "TextBox 17",
+        "x":  48,
+        "slide":  6,
+        "text":  "Missing GPS needs correction or a clearly labelled manual location.",
+        "h":  38
+    },
+    {
+        "size":  12,
+        "w":  820,
+        "y":  26,
+        "name":  "TextBox 1",
+        "x":  48,
+        "slide":  7,
+        "text":  "ASSESSMENT \u0026 ROAD CONDITION",
+        "h":  22
+    },
+    {
+        "size":  35,
+        "w":  864,
+        "y":  69,
+        "name":  "TextBox 2",
+        "x":  48,
+        "slide":  7,
+        "text":  "Severity and priority are different",
+        "h":  89
+    },
+    {
+        "size":  10,
+        "w":  700,
+        "y":  510,
+        "name":  "TextBox 4",
+        "x":  48,
+        "slide":  7,
+        "text":  "ROAD DAMAGE DETECTION  /  GECB",
+        "h":  18
+    },
+    {
+        "size":  10,
+        "w":  76,
+        "y":  510,
+        "name":  "TextBox 5",
+        "x":  836,
+        "slide":  7,
+        "text":  "07 / 12",
+        "h":  18
+    },
+    {
+        "size":  24,
+        "w":  264,
+        "y":  182,
+        "name":  "TextBox 6",
+        "x":  48,
+        "slide":  7,
+        "text":  "Severity",
+        "h":  40
+    },
+    {
+        "size":  22,
+        "w":  264,
+        "y":  240,
+        "name":  "TextBox 7",
+        "x":  48,
+        "slide":  7,
+        "text":  "How concerning does the visible damage appear?",
+        "h":  79
+    },
+    {
+        "size":  18,
+        "w":  264,
+        "y":  338,
+        "name":  "TextBox 8",
+        "x":  48,
+        "slide":  7,
+        "text":  "Propose low, medium or high concern from damage type and apparent extent.",
+        "h":  100
+    },
+    {
+        "size":  24,
+        "w":  264,
+        "y":  182,
+        "name":  "TextBox 9",
+        "x":  348,
+        "slide":  7,
+        "text":  "Priority",
+        "h":  40
+    },
+    {
+        "size":  22,
+        "w":  264,
+        "y":  240,
+        "name":  "TextBox 10",
+        "x":  348,
+        "slide":  7,
+        "text":  "Which case should be inspected first?",
+        "h":  79
+    },
+    {
+        "size":  18,
+        "w":  264,
+        "y":  338,
+        "name":  "TextBox 11",
+        "x":  348,
+        "slide":  7,
+        "text":  "Combine severity, road importance, report age and reliable traffic exposure.",
+        "h":  100
+    },
+    {
+        "size":  24,
+        "w":  264,
+        "y":  182,
+        "name":  "TextBox 12",
+        "x":  648,
+        "slide":  7,
+        "text":  "Road health",
+        "h":  40
+    },
+    {
+        "size":  22,
+        "w":  264,
+        "y":  240,
+        "name":  "TextBox 13",
+        "x":  648,
+        "slide":  7,
+        "text":  "What was observed on this segment?",
+        "h":  79
+    },
+    {
+        "size":  18,
+        "w":  264,
+        "y":  338,
+        "name":  "TextBox 14",
+        "x":  648,
+        "slide":  7,
+        "text":  "Use a provisional 0–100 score with survey date and coverage; higher means better.",
+        "h":  100
+    },
+    {
+        "size":  16,
+        "w":  864,
+        "y":  460,
+        "name":  "TextBox 16",
+        "x":  48,
+        "slide":  7,
+        "text":  "Confidence is separate from severity. Officers can review scores and record overrides.",
+        "h":  38
+    },
+    {
+        "size":  12,
+        "w":  820,
+        "y":  26,
+        "name":  "TextBox 1",
+        "x":  48,
+        "slide":  8,
+        "text":  "SYSTEM DESIGN",
+        "h":  22
+    },
+    {
+        "size":  35,
+        "w":  864,
+        "y":  69,
+        "name":  "TextBox 2",
+        "x":  48,
+        "slide":  8,
+        "text":  "Proposed system architecture",
+        "h":  89
+    },
+    {
+        "size":  10,
+        "w":  700,
+        "y":  510,
+        "name":  "TextBox 4",
+        "x":  48,
+        "slide":  8,
+        "text":  "ROAD DAMAGE DETECTION  /  GECB",
+        "h":  18
+    },
+    {
+        "size":  10,
+        "w":  76,
+        "y":  510,
+        "name":  "TextBox 5",
+        "x":  836,
+        "slide":  8,
+        "text":  "08 / 12",
+        "h":  18
+    },
+    {
+        "size":  24,
+        "w":  228,
+        "y":  190,
+        "name":  "TextBox 13",
+        "x":  63,
+        "slide":  8,
+        "text":  "Web application",
+        "h":  30
+    },
+    {
+        "size":  16,
+        "w":  228,
+        "y":  226,
+        "name":  "TextBox 14",
+        "x":  63,
+        "slide":  8,
+        "text":  "React · uploads \u0026 dashboard",
+        "h":  27
+    },
+    {
+        "size":  24,
+        "w":  228,
+        "y":  190,
+        "name":  "TextBox 16",
+        "x":  367,
+        "slide":  8,
+        "text":  "Application API",
+        "h":  30
+    },
+    {
+        "size":  16,
+        "w":  228,
+        "y":  226,
+        "name":  "TextBox 17",
+        "x":  367,
+        "slide":  8,
+        "text":  "FastAPI · access \u0026 workflow",
+        "h":  27
+    },
+    {
+        "size":  24,
+        "w":  228,
+        "y":  190,
+        "name":  "TextBox 19",
+        "x":  669,
+        "slide":  8,
+        "text":  "Notifications",
+        "h":  30
+    },
+    {
+        "size":  16,
+        "w":  228,
+        "y":  226,
+        "name":  "TextBox 20",
+        "x":  669,
+        "slide":  8,
+        "text":  "Configured municipal alerts",
+        "h":  27
+    },
+    {
+        "size":  16,
+        "w":  150,
+        "y":  279,
+        "name":  "TextBox 21",
+        "x":  169,
+        "slide":  8,
+        "text":  "Queued jobs",
+        "h":  27
+    },
+    {
+        "size":  24,
+        "w":  228,
+        "y":  336,
+        "name":  "TextBox 23",
+        "x":  63,
+        "slide":  8,
+        "text":  "AI worker",
+        "h":  30
+    },
+    {
+        "size":  16,
+        "w":  228,
+        "y":  372,
+        "name":  "TextBox 24",
+        "x":  63,
+        "slide":  8,
+        "text":  "OpenCV / PyTorch · inference",
+        "h":  27
+    },
+    {
+        "size":  24,
+        "w":  228,
+        "y":  336,
+        "name":  "TextBox 26",
+        "x":  367,
+        "slide":  8,
+        "text":  "Data \u0026 media",
+        "h":  30
+    },
+    {
+        "size":  16,
+        "w":  228,
+        "y":  372,
+        "name":  "TextBox 27",
+        "x":  367,
+        "slide":  8,
+        "text":  "PostgreSQL / PostGIS",
+        "h":  27
+    },
+    {
+        "size":  24,
+        "w":  228,
+        "y":  336,
+        "name":  "TextBox 29",
+        "x":  669,
+        "slide":  8,
+        "text":  "Road history",
+        "h":  30
+    },
+    {
+        "size":  16,
+        "w":  228,
+        "y":  372,
+        "name":  "TextBox 30",
+        "x":  669,
+        "slide":  8,
+        "text":  "Surveys \u0026 repair trends",
+        "h":  27
+    },
+    {
+        "size":  16,
+        "w":  864,
+        "y":  460,
+        "name":  "TextBox 32",
+        "x":  48,
+        "slide":  8,
+        "text":  "Structured cases live in the database; original and annotated media live in object storage.",
+        "h":  38
+    },
+    {
+        "size":  12,
+        "w":  820,
+        "y":  26,
+        "name":  "TextBox 1",
+        "x":  48,
+        "slide":  9,
+        "text":  "MUNICIPAL OPERATIONS",
+        "h":  22
+    },
+    {
+        "size":  35,
+        "w":  864,
+        "y":  69,
+        "name":  "TextBox 2",
+        "x":  48,
+        "slide":  9,
+        "text":  "Officers control approval and closure",
+        "h":  89
+    },
+    {
+        "size":  10,
+        "w":  700,
+        "y":  510,
+        "name":  "TextBox 4",
+        "x":  48,
+        "slide":  9,
+        "text":  "ROAD DAMAGE DETECTION  /  GECB",
+        "h":  18
+    },
+    {
+        "size":  10,
+        "w":  76,
+        "y":  510,
+        "name":  "TextBox 5",
+        "x":  836,
+        "slide":  9,
+        "text":  "09 / 12",
+        "h":  18
+    },
+    {
+        "size":  24,
+        "w":  49,
+        "y":  172,
+        "name":  "TextBox 6",
+        "x":  48,
+        "slide":  9,
+        "text":  "01",
+        "h":  34
+    },
+    {
+        "size":  24,
+        "w":  285,
+        "y":  172,
+        "name":  "TextBox 7",
+        "x":  111,
+        "slide":  9,
+        "text":  "Review the evidence",
+        "h":  65
+    },
+    {
+        "size":  19,
+        "w":  487,
+        "y":  173,
+        "name":  "TextBox 8",
+        "x":  425,
+        "slide":  9,
+        "text":  "Inspect the photo, map, predicted damage and suggested priority.",
+        "h":  65
+    },
+    {
+        "size":  24,
+        "w":  49,
+        "y":  258,
+        "name":  "TextBox 10",
+        "x":  48,
+        "slide":  9,
+        "text":  "02",
+        "h":  34
+    },
+    {
+        "size":  24,
+        "w":  285,
+        "y":  258,
+        "name":  "TextBox 11",
+        "x":  111,
+        "slide":  9,
+        "text":  "Decide and assign",
+        "h":  65
+    },
+    {
+        "size":  19,
+        "w":  487,
+        "y":  259,
+        "name":  "TextBox 12",
+        "x":  425,
+        "slide":  9,
+        "text":  "Accept, correct, reject or merge; assign an approved case with a target date.",
+        "h":  65
+    },
+    {
+        "size":  24,
+        "w":  49,
+        "y":  344,
+        "name":  "TextBox 14",
+        "x":  48,
+        "slide":  9,
+        "text":  "03",
+        "h":  34
+    },
+    {
+        "size":  24,
+        "w":  285,
+        "y":  344,
+        "name":  "TextBox 15",
+        "x":  111,
+        "slide":  9,
+        "text":  "Verify the repair",
+        "h":  65
+    },
+    {
+        "size":  19,
+        "w":  487,
+        "y":  345,
+        "name":  "TextBox 16",
+        "x":  425,
+        "slide":  9,
+        "text":  "Compare before/after evidence from the same location; close or return for more work.",
+        "h":  65
+    },
+    {
+        "size":  16,
+        "w":  864,
+        "y":  460,
+        "name":  "TextBox 18",
+        "x":  48,
+        "slide":  9,
+        "text":  "Every decision retains the responsible user, timestamp and reason.",
+        "h":  38
+    },
+    {
+        "size":  12,
+        "w":  820,
+        "y":  26,
+        "name":  "TextBox 1",
+        "x":  48,
+        "slide":  10,
+        "text":  "IMPLEMENTATION \u0026 REQUIREMENTS",
+        "h":  22
+    },
+    {
+        "size":  35,
+        "w":  864,
+        "y":  69,
+        "name":  "TextBox 2",
+        "x":  48,
+        "slide":  10,
+        "text":  "Build the prototype in four stages",
+        "h":  89
+    },
+    {
+        "size":  10,
+        "w":  700,
+        "y":  510,
+        "name":  "TextBox 4",
+        "x":  48,
+        "slide":  10,
+        "text":  "ROAD DAMAGE DETECTION  /  GECB",
+        "h":  18
+    },
+    {
+        "size":  10,
+        "w":  76,
+        "y":  510,
+        "name":  "TextBox 5",
+        "x":  836,
+        "slide":  10,
+        "text":  "10 / 12",
+        "h":  18
+    },
+    {
+        "size":  24,
+        "w":  193,
+        "y":  174,
+        "name":  "TextBox 7",
+        "x":  48,
+        "slide":  10,
+        "text":  "1  Detection baseline",
+        "h":  67
+    },
+    {
+        "size":  18,
+        "w":  193,
+        "y":  270,
+        "name":  "TextBox 8",
+        "x":  48,
+        "slide":  10,
+        "text":  "Confirm model classes; test annotated images and video sampling.",
+        "h":  149
+    },
+    {
+        "size":  24,
+        "w":  193,
+        "y":  174,
+        "name":  "TextBox 9",
+        "x":  272,
+        "slide":  10,
+        "text":  "2  Incident pipeline",
+        "h":  67
+    },
+    {
+        "size":  18,
+        "w":  193,
+        "y":  270,
+        "name":  "TextBox 10",
+        "x":  272,
+        "slide":  10,
+        "text":  "Connect uploads, GPS, duplicate grouping and provisional scores.",
+        "h":  149
+    },
+    {
+        "size":  24,
+        "w":  193,
+        "y":  174,
+        "name":  "TextBox 11",
+        "x":  496,
+        "slide":  10,
+        "text":  "3  Municipal workflow",
+        "h":  67
+    },
+    {
+        "size":  18,
+        "w":  193,
+        "y":  270,
+        "name":  "TextBox 12",
+        "x":  496,
+        "slide":  10,
+        "text":  "Add role-based review, assignment, repair evidence and history.",
+        "h":  149
+    },
+    {
+        "size":  24,
+        "w":  193,
+        "y":  174,
+        "name":  "TextBox 13",
+        "x":  720,
+        "slide":  10,
+        "text":  "4  End-to-end validation",
+        "h":  67
+    },
+    {
+        "size":  18,
+        "w":  193,
+        "y":  270,
+        "name":  "TextBox 14",
+        "x":  720,
+        "slide":  10,
+        "text":  "Measure quality and delay; test failures and closure controls.",
+        "h":  149
+    },
+    {
+        "size":  16,
+        "w":  864,
+        "y":  460,
+        "name":  "TextBox 16",
+        "x":  48,
+        "slide":  10,
+        "text":  "Starting setup: GPS phone · 4-core PC · 16 GB RAM · ~50 GB SSD · optional GPU",
+        "h":  38
+    },
+    {
+        "size":  12,
+        "w":  820,
+        "y":  26,
+        "name":  "TextBox 1",
+        "x":  48,
+        "slide":  11,
+        "text":  "VALIDATION PLAN",
+        "h":  22
+    },
+    {
+        "size":  35,
+        "w":  864,
+        "y":  69,
+        "name":  "TextBox 2",
+        "x":  48,
+        "slide":  11,
+        "text":  "Test the AI and the complete workflow",
+        "h":  89
+    },
+    {
+        "size":  10,
+        "w":  700,
+        "y":  510,
+        "name":  "TextBox 4",
+        "x":  48,
+        "slide":  11,
+        "text":  "ROAD DAMAGE DETECTION  /  GECB",
+        "h":  18
+    },
+    {
+        "size":  10,
+        "w":  76,
+        "y":  510,
+        "name":  "TextBox 5",
+        "x":  836,
+        "slide":  11,
+        "text":  "11 / 12",
+        "h":  18
+    },
+    {
+        "size":  18,
+        "w":  292,
+        "y":  166,
+        "name":  "TextBox 6",
+        "x":  48,
+        "slide":  11,
+        "text":  "Evaluation area",
+        "h":  30
+    },
+    {
+        "size":  18,
+        "w":  542,
+        "y":  166,
+        "name":  "TextBox 7",
+        "x":  370,
+        "slide":  11,
+        "text":  "Evidence to collect",
+        "h":  30
+    },
+    {
+        "size":  20,
+        "w":  287,
+        "y":  217,
+        "name":  "TextBox 9",
+        "x":  48,
+        "slide":  11,
+        "text":  "Detection",
+        "h":  49
+    },
+    {
+        "size":  18,
+        "w":  542,
+        "y":  217,
+        "name":  "TextBox 10",
+        "x":  370,
+        "slide":  11,
+        "text":  "Per-class precision, recall and mAP on held-out images",
+        "h":  49
+    },
+    {
+        "size":  20,
+        "w":  287,
+        "y":  272,
+        "name":  "TextBox 12",
+        "x":  48,
+        "slide":  11,
+        "text":  "Location \u0026 duplicates",
+        "h":  49
+    },
+    {
+        "size":  18,
+        "w":  542,
+        "y":  272,
+        "name":  "TextBox 13",
+        "x":  370,
+        "slide":  11,
+        "text":  "GPS/road-segment errors; missed or incorrect merges",
+        "h":  49
+    },
+    {
+        "size":  20,
+        "w":  287,
+        "y":  327,
+        "name":  "TextBox 15",
+        "x":  48,
+        "slide":  11,
+        "text":  "Scoring \u0026 speed",
+        "h":  49
+    },
+    {
+        "size":  18,
+        "w":  542,
+        "y":  327,
+        "name":  "TextBox 16",
+        "x":  370,
+        "slide":  11,
+        "text":  "Officer agreement; upload-to-result delay on stated hardware",
+        "h":  49
+    },
+    {
+        "size":  20,
+        "w":  287,
+        "y":  382,
+        "name":  "TextBox 18",
+        "x":  48,
+        "slide":  11,
+        "text":  "Municipal workflow",
+        "h":  49
+    },
+    {
+        "size":  18,
+        "w":  542,
+        "y":  382,
+        "name":  "TextBox 19",
+        "x":  370,
+        "slide":  11,
+        "text":  "Accept, reject, assign, repair, reopen and authorize closure",
+        "h":  49
+    },
+    {
+        "size":  16,
+        "w":  864,
+        "y":  460,
+        "name":  "TextBox 21",
+        "x":  48,
+        "slide":  11,
+        "text":  "Keep repeated road views in one data split. Report actual results after testing.",
+        "h":  38
+    },
+    {
+        "size":  12,
+        "w":  820,
+        "y":  26,
+        "name":  "TextBox 1",
+        "x":  48,
+        "slide":  12,
+        "text":  "EXPECTED OUTCOME \u0026 FUTURE SCOPE",
+        "h":  22
+    },
+    {
+        "size":  35,
+        "w":  864,
+        "y":  69,
+        "name":  "TextBox 2",
+        "x":  48,
+        "slide":  12,
+        "text":  "A clear path to verified road repairs",
+        "h":  89
+    },
+    {
+        "size":  10,
+        "w":  700,
+        "y":  510,
+        "name":  "TextBox 4",
+        "x":  48,
+        "slide":  12,
+        "text":  "ROAD DAMAGE DETECTION  /  GECB",
+        "h":  18
+    },
+    {
+        "size":  10,
+        "w":  76,
+        "y":  510,
+        "name":  "TextBox 5",
+        "x":  836,
+        "slide":  12,
+        "text":  "12 / 12",
+        "h":  18
+    },
+    {
+        "size":  25,
+        "w":  842,
+        "y":  153,
+        "name":  "TextBox 6",
+        "x":  48,
+        "slide":  12,
+        "text":  "One connected record: road evidence, a municipal decision and a verified repair.",
+        "h":  65
+    },
+    {
+        "size":  24,
+        "w":  264,
+        "y":  253,
+        "name":  "TextBox 7",
+        "x":  48,
+        "slide":  12,
+        "text":  "Expected outcome",
+        "h":  60
+    },
+    {
+        "size":  18,
+        "w":  264,
+        "y":  312,
+        "name":  "TextBox 8",
+        "x":  48,
+        "slide":  12,
+        "text":  "Mapped incidents, clear ownership and before/after repair history.",
+        "h":  119
+    },
+    {
+        "size":  24,
+        "w":  264,
+        "y":  253,
+        "name":  "TextBox 9",
+        "x":  348,
+        "slide":  12,
+        "text":  "Practical limits",
+        "h":  60
+    },
+    {
+        "size":  18,
+        "w":  264,
+        "y":  312,
+        "name":  "TextBox 10",
+        "x":  348,
+        "slide":  12,
+        "text":  "Lighting, GPS quality and municipal participation affect reliability.",
+        "h":  119
+    },
+    {
+        "size":  24,
+        "w":  264,
+        "y":  253,
+        "name":  "TextBox 11",
+        "x":  648,
+        "slide":  12,
+        "text":  "Future scope",
+        "h":  60
+    },
+    {
+        "size":  18,
+        "w":  264,
+        "y":  312,
+        "name":  "TextBox 12",
+        "x":  648,
+        "slide":  12,
+        "text":  "Offline capture, regional languages and forecasting after sufficient verified history.",
+        "h":  119
+    },
+    {
+        "size":  16,
+        "w":  864,
+        "y":  460,
+        "name":  "TextBox 14",
+        "x":  48,
+        "slide":  12,
+        "text":  "Next milestone: demonstrate one complete case from upload to officer-approved closure.",
+        "h":  38
+    }
+]
