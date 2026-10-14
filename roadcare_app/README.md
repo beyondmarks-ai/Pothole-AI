@@ -24,7 +24,7 @@ The incident repository remains in-memory for this prototype, so data resets whe
 
 ```powershell
 flutter pub get
-flutter run --dart-define=ROADCARE_AI_API_URL=https://YOUR-API/analyze
+flutter run --dart-define=ROADCARE_AI_API_URL=https://roadcare-ai-api-617db5.azurewebsites.net/api/analyze
 ```
 
 Demo accounts are selected by role. The citizen demo uses `citizen@roadcare.app`; the municipal demo uses `officer@bidar.gov.in`. The password is `roadcare`.
@@ -43,6 +43,9 @@ For a local physical-device test, run the backend on port 7071, use
 ```powershell
 flutter run --dart-define=ROADCARE_AI_API_URL=http://127.0.0.1:7071/analyze
 ```
+
+The standalone version 1.1.0 release uses the public HTTPS Azure Function and
+does not require ADB, a development computer, or a local backend process.
 
 ## Verification
 

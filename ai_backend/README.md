@@ -15,11 +15,19 @@ login without an API key by setting `AZURE_OPENAI_USE_IDENTITY=true`:
 npm start
 ```
 
-The Flutter debug app uses `http://127.0.0.1:7071/analyze` through `adb reverse`.
-Production should deploy this container behind HTTPS and pass the URL using:
+The Flutter debug app can use `http://127.0.0.1:7071/analyze` through
+`adb reverse`. The production analyzer is deployed at:
+
+`https://roadcare-ai-api-617db5.azurewebsites.net/api/analyze`
+
+Build the standalone Android app with:
 
 ```powershell
-flutter build apk --release --dart-define=ROADCARE_AI_API_URL=https://YOUR-API/analyze
+flutter build apk --release --dart-define=ROADCARE_AI_API_URL=https://roadcare-ai-api-617db5.azurewebsites.net/api/analyze
 ```
 
 Do not put the Azure key in Flutter, source control, or `--dart-define`.
+
+The project also includes an Azure Functions v4 entry point in
+`src/functions/roadcare.mjs`. In Azure it uses the Function App's managed
+identity to call the Foundry deployment without storing an API key.

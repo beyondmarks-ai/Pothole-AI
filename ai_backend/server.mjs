@@ -103,7 +103,7 @@ function clampInteger(value) {
   return Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
 }
 
-async function analyzeImage(imageBase64, mimeType) {
+export async function analyzeImage(imageBase64, mimeType) {
   if (!endpoint || !deployment) {
     throw new PublicError(503, "The AI service is not configured on the server.");
   }
@@ -179,6 +179,29 @@ async function analyzeImage(imageBase64, mimeType) {
 
 async function azureAuthenticationHeaders() {
   if (apiKey) return { "api-key": apiKey };
+  if (process.env.IDENTITY_ENDPOINT && process.env.IDENTITY_HEADER) {
+    try {
+      const identityUrl = new URL(process.env.IDENTITY_ENDPOINT);
+      identityUrl.searchParams.set(
+        "resource",
+        "https://cognitiveservices.azure.com",
+      );
+      identityUrl.searchParams.set("api-version", "2019-08-01");
+      const identityResponse = await fetch(identityUrl, {
+        headers: { "X-IDENTITY-HEADER": process.env.IDENTITY_HEADER },
+        signal: AbortSignal.timeout(10_000),
+      });
+      if (!identityResponse.ok) throw new Error("Managed identity was rejected.");
+      const identity = await identityResponse.json();
+      if (!identity.access_token) throw new Error("Managed identity token missing.");
+      return { Authorization: `Bearer ${identity.access_token}` };
+    } catch {
+      throw new PublicError(
+        503,
+        "Azure managed identity is unavailable on the AI server.",
+      );
+    }
+  }
   try {
     const azureArguments = [
       "account",
