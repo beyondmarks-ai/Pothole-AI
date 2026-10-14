@@ -6,7 +6,6 @@ import '../store.dart';
 import 'citizen_dashboard_screen.dart';
 import 'dashboard_screen.dart';
 import 'incidents_screen.dart';
-import 'map_screen.dart';
 import 'profile_screen.dart';
 import 'report_screen.dart';
 import 'work_screen.dart';
@@ -24,20 +23,16 @@ class _HomeShellState extends ConsumerState<HomeShell> {
   Widget build(BuildContext context) {
     final role = ref.watch(sessionProvider)!.role;
     final citizen = role == UserRole.citizen;
+    final maintenance = role == UserRole.maintenance;
     final pages = citizen
         ? const [
             CitizenDashboardScreen(),
             IncidentsScreen(onlyMine: true),
-            MapScreen(),
             ProfileScreen(),
           ]
-        : const [
-            DashboardScreen(),
-            MapScreen(),
-            IncidentsScreen(),
-            WorkScreen(),
-            ProfileScreen(),
-          ];
+        : maintenance
+        ? const [WorkScreen(), ProfileScreen()]
+        : const [DashboardScreen(), IncidentsScreen(), ProfileScreen()];
     final destinations = citizen
         ? const [
             NavigationDestination(
@@ -51,9 +46,17 @@ class _HomeShellState extends ConsumerState<HomeShell> {
               label: 'My reports',
             ),
             NavigationDestination(
-              icon: Icon(Icons.map_outlined),
-              selectedIcon: Icon(Icons.map_rounded),
-              label: 'Map',
+              icon: Icon(Icons.person_outline_rounded),
+              selectedIcon: Icon(Icons.person_rounded),
+              label: 'Profile',
+            ),
+          ]
+        : maintenance
+        ? const [
+            NavigationDestination(
+              icon: Icon(Icons.engineering_outlined),
+              selectedIcon: Icon(Icons.engineering_rounded),
+              label: 'My work',
             ),
             NavigationDestination(
               icon: Icon(Icons.person_outline_rounded),
@@ -63,24 +66,14 @@ class _HomeShellState extends ConsumerState<HomeShell> {
           ]
         : const [
             NavigationDestination(
-              icon: Icon(Icons.space_dashboard_outlined),
-              selectedIcon: Icon(Icons.space_dashboard_rounded),
-              label: 'Overview',
+              icon: Icon(Icons.fact_check_outlined),
+              selectedIcon: Icon(Icons.fact_check_rounded),
+              label: 'Review',
             ),
             NavigationDestination(
-              icon: Icon(Icons.map_outlined),
-              selectedIcon: Icon(Icons.map_rounded),
-              label: 'Map',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.report_gmailerrorred_outlined),
-              selectedIcon: Icon(Icons.report_rounded),
-              label: 'Cases',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.engineering_outlined),
-              selectedIcon: Icon(Icons.engineering_rounded),
-              label: 'Work',
+              icon: Icon(Icons.folder_outlined),
+              selectedIcon: Icon(Icons.folder_rounded),
+              label: 'All cases',
             ),
             NavigationDestination(
               icon: Icon(Icons.person_outline_rounded),
@@ -91,14 +84,14 @@ class _HomeShellState extends ConsumerState<HomeShell> {
     if (index >= pages.length) index = 0;
     return Scaffold(
       body: IndexedStack(index: index, children: pages),
-      floatingActionButton: index == pages.length - 1
+      floatingActionButton: !citizen || index == pages.length - 1
           ? null
           : FloatingActionButton.extended(
               onPressed: () => Navigator.of(
                 context,
               ).push(MaterialPageRoute(builder: (_) => const ReportScreen())),
               icon: const Icon(Icons.add_a_photo_rounded),
-              label: const Text('Report'),
+              label: const Text('Report damage'),
             ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: NavigationBar(

@@ -53,6 +53,7 @@ class RoadIncident {
     required this.assignedTeam,
     required this.timeline,
     this.imagePath,
+    this.repairImagePath,
   });
   final String id;
   final String roadName;
@@ -71,6 +72,7 @@ class RoadIncident {
   final String reporterEmail;
   final String? assignedTeam;
   final String? imagePath;
+  final String? repairImagePath;
   final List<TimelineEvent> timeline;
 
   RoadIncident copyWith({
@@ -78,6 +80,7 @@ class RoadIncident {
     IncidentStatus? status,
     String? assignedTeam,
     List<TimelineEvent>? timeline,
+    String? repairImagePath,
   }) => RoadIncident(
     id: id,
     roadName: roadName,
@@ -96,6 +99,7 @@ class RoadIncident {
     reporterEmail: reporterEmail,
     assignedTeam: assignedTeam ?? this.assignedTeam,
     imagePath: imagePath,
+    repairImagePath: repairImagePath ?? this.repairImagePath,
     timeline: timeline ?? this.timeline,
   );
 }

@@ -12,16 +12,27 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-  final email = TextEditingController(text: 'officer@bidar.gov.in');
+  final email = TextEditingController(text: 'citizen@roadcare.app');
   final password = TextEditingController(text: 'roadcare');
-  UserRole role = UserRole.officer;
+  UserRole role = UserRole.citizen;
   bool obscure = true;
 
   String _demoEmail(UserRole value) => switch (value) {
     UserRole.citizen => 'citizen@roadcare.app',
+    UserRole.officer || UserRole.administrator => 'officer@bidar.gov.in',
     UserRole.maintenance => 'team@roadcare.gov.in',
-    UserRole.officer => 'officer@bidar.gov.in',
-    UserRole.administrator => 'admin@bidar.gov.in',
+  };
+
+  String get _emailLabel => switch (role) {
+    UserRole.citizen => 'Email address',
+    UserRole.officer || UserRole.administrator => 'Municipal work email',
+    UserRole.maintenance => 'Team work email',
+  };
+
+  String get _dashboardLabel => switch (role) {
+    UserRole.citizen => 'Open citizen dashboard',
+    UserRole.officer || UserRole.administrator => 'Open municipal dashboard',
+    UserRole.maintenance => 'Open repair team dashboard',
   };
 
   @override
@@ -83,26 +94,38 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 const SizedBox(height: 34),
                 Text(
-                  'Sign in to your workspace',
+                  'Choose your role',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
+                const SizedBox(height: 6),
+                const Text(
+                  'Each role has a separate, focused dashboard.',
+                  style: TextStyle(color: AppColors.muted),
+                ),
                 const SizedBox(height: 18),
-                DropdownButtonFormField<UserRole>(
-                  initialValue: role,
-                  decoration: const InputDecoration(
-                    labelText: 'Demo role',
-                    prefixIcon: Icon(Icons.badge_outlined),
-                  ),
-                  items: UserRole.values
-                      .map(
-                        (value) => DropdownMenuItem(
-                          value: value,
-                          child: Text(value.label),
-                        ),
-                      )
-                      .toList(),
-                  onChanged: (value) {
-                    if (value == null) return;
+                SegmentedButton<UserRole>(
+                  direction: Axis.vertical,
+                  segments: const [
+                    ButtonSegment(
+                      value: UserRole.citizen,
+                      icon: Icon(Icons.person_outline_rounded),
+                      label: Text('Citizen'),
+                    ),
+                    ButtonSegment(
+                      value: UserRole.officer,
+                      icon: Icon(Icons.account_balance_outlined),
+                      label: Text('Municipal officer'),
+                    ),
+                    ButtonSegment(
+                      value: UserRole.maintenance,
+                      icon: Icon(Icons.engineering_outlined),
+                      label: Text('Assigned repair team'),
+                    ),
+                  ],
+                  selected: {role},
+                  showSelectedIcon: false,
+                  onSelectionChanged: (selection) {
+                    final value = selection.first;
                     setState(() {
                       role = value;
                       email.text = _demoEmail(value);
@@ -113,9 +136,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 TextField(
                   controller: email,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    labelText: 'Work email',
-                    prefixIcon: Icon(Icons.alternate_email_rounded),
+                  decoration: InputDecoration(
+                    labelText: _emailLabel,
+                    prefixIcon: const Icon(Icons.alternate_email_rounded),
                   ),
                 ),
                 const SizedBox(height: 14),
@@ -141,7 +164,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       .read(sessionProvider.notifier)
                       .signIn(email.text, role),
                   icon: const Icon(Icons.arrow_forward_rounded),
-                  label: const Text('Enter dashboard'),
+                  label: Text(_dashboardLabel),
                 ),
                 const SizedBox(height: 16),
                 const Wrap(
@@ -155,7 +178,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       color: AppColors.muted,
                     ),
                     Text(
-                      'Secure municipal workspace - Demo mode',
+                      'Demo mode - use the pre-filled details',
                       style: TextStyle(color: AppColors.muted, fontSize: 12),
                     ),
                   ],

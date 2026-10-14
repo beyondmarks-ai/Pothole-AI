@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'models.dart';
+import 'notification_service.dart';
 
 final sessionProvider = NotifierProvider<SessionController, AppUser?>(
   SessionController.new,
@@ -48,6 +49,7 @@ class IncidentController extends Notifier<List<RoadIncident>> {
     IncidentStatus next,
     String action, {
     String? team,
+    String? repairImagePath,
   }) {
     state = [
       for (final incident in state)
@@ -55,6 +57,7 @@ class IncidentController extends Notifier<List<RoadIncident>> {
           incident.copyWith(
             status: next,
             assignedTeam: team,
+            repairImagePath: repairImagePath,
             timeline: [
               TimelineEvent(
                 title: action,
@@ -67,6 +70,10 @@ class IncidentController extends Notifier<List<RoadIncident>> {
         else
           incident,
     ];
+    if (next == IncidentStatus.closed) {
+      final completed = state.firstWhere((incident) => incident.id == id);
+      NotificationService.instance.showRepairCompleted(completed);
+    }
   }
 }
 

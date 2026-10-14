@@ -12,11 +12,20 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(sessionProvider)!;
     final dark = ref.watch(themeModeProvider) == ThemeMode.dark;
+    final citizen = user.role == UserRole.citizen;
+    final maintenance = user.role == UserRole.maintenance;
     return SafeArea(
       child: ListView(
         padding: const EdgeInsets.fromLTRB(20, 18, 20, 110),
         children: [
-          const PageHeader(eyebrow: 'Account & system', title: 'Profile'),
+          PageHeader(
+            eyebrow: citizen
+                ? 'Citizen account'
+                : maintenance
+                ? 'Repair team account'
+                : 'Municipal account',
+            title: 'Profile',
+          ),
           const SizedBox(height: 20),
           Card(
             child: Padding(
@@ -79,22 +88,28 @@ class ProfileScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 24),
-          const SectionTitle('Workspace'),
+          SectionTitle(citizen ? 'Preferences' : 'Workspace'),
           const SizedBox(height: 10),
           Card(
             child: Column(
               children: [
-                const _SettingTile(
-                  icon: Icons.apartment_rounded,
-                  title: 'Bidar municipal workspace',
-                  subtitle: 'Primary jurisdiction',
-                ),
-                const Divider(height: 1, indent: 68),
-                const _SettingTile(
+                _SettingTile(
                   icon: Icons.notifications_active_outlined,
                   title: 'Notifications',
-                  subtitle: 'Critical cases and assignments',
+                  subtitle: citizen
+                      ? 'Updates about your submitted reports'
+                      : maintenance
+                      ? 'New assignments and officer responses'
+                      : 'New reports and cases needing action',
                 ),
+                if (!citizen && !maintenance) ...[
+                  const Divider(height: 1, indent: 68),
+                  const _SettingTile(
+                    icon: Icons.apartment_rounded,
+                    title: 'Bidar municipality',
+                    subtitle: 'Officer workspace and jurisdiction',
+                  ),
+                ],
                 const Divider(height: 1, indent: 68),
                 SwitchListTile(
                   value: dark,
@@ -110,32 +125,34 @@ class ProfileScreen extends ConsumerWidget {
               ],
             ),
           ),
-          const SizedBox(height: 22),
-          const SectionTitle('System'),
-          const SizedBox(height: 10),
-          const Card(
-            child: Column(
-              children: [
-                _SettingTile(
-                  icon: Icons.psychology_outlined,
-                  title: 'AI model',
-                  subtitle: 'YOLOv8-Small-RDD2022 · Ready',
-                ),
-                Divider(height: 1, indent: 68),
-                _SettingTile(
-                  icon: Icons.cloud_done_outlined,
-                  title: 'Cloud synchronization',
-                  subtitle: 'Demo repository · Ready for API',
-                ),
-                Divider(height: 1, indent: 68),
-                _SettingTile(
-                  icon: Icons.security_outlined,
-                  title: 'Privacy and audit',
-                  subtitle: 'Role controls and evidence history',
-                ),
-              ],
+          if (!citizen) ...[
+            const SizedBox(height: 22),
+            SectionTitle(maintenance ? 'Team system' : 'Municipal system'),
+            const SizedBox(height: 10),
+            const Card(
+              child: Column(
+                children: [
+                  _SettingTile(
+                    icon: Icons.psychology_outlined,
+                    title: 'AI model',
+                    subtitle: 'YOLOv8-Small-RDD2022 · Ready',
+                  ),
+                  Divider(height: 1, indent: 68),
+                  _SettingTile(
+                    icon: Icons.cloud_done_outlined,
+                    title: 'Cloud synchronization',
+                    subtitle: 'Demo repository · Ready for API',
+                  ),
+                  Divider(height: 1, indent: 68),
+                  _SettingTile(
+                    icon: Icons.security_outlined,
+                    title: 'Privacy and audit',
+                    subtitle: 'Role controls and evidence history',
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
           const SizedBox(height: 22),
           OutlinedButton.icon(
             onPressed: () => ref.read(sessionProvider.notifier).signOut(),

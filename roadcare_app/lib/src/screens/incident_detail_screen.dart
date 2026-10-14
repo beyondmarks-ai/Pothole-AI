@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import '../models.dart';
@@ -16,6 +19,8 @@ class IncidentDetailScreen extends ConsumerWidget {
     final incident = ref
         .watch(incidentProvider)
         .firstWhere((item) => item.id == incidentId);
+    final role = ref.watch(sessionProvider)!.role;
+    final citizen = role == UserRole.citizen;
     return Scaffold(
       appBar: AppBar(
         title: Text(incident.id),
@@ -31,6 +36,7 @@ class IncidentDetailScreen extends ConsumerWidget {
         children: [
           Container(
             height: 205,
+            clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [Color(0xFF314657), Color(0xFF162630)],
@@ -41,13 +47,24 @@ class IncidentDetailScreen extends ConsumerWidget {
             ),
             child: Stack(
               children: [
-                const Positioned.fill(
-                  child: Icon(
-                    Icons.add_road_rounded,
-                    size: 92,
-                    color: Colors.white12,
+                Positioned.fill(
+                  child: _EvidenceImage(
+                    path: incident.imagePath,
+                    fallbackIcon: Icons.add_road_rounded,
                   ),
                 ),
+                if (_fileExists(incident.imagePath))
+                  Positioned.fill(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.black12, Colors.black54],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                    ),
+                  ),
                 Positioned(
                   left: 18,
                   top: 18,
@@ -99,7 +116,9 @@ class IncidentDetailScreen extends ConsumerWidget {
                               ),
                             ),
                             Text(
-                              'Annotated evidence preview',
+                              _fileExists(incident.imagePath)
+                                  ? 'Citizen-uploaded road evidence'
+                                  : 'Evidence preview unavailable',
                               style: TextStyle(
                                 color: Colors.white.withValues(alpha: .65),
                                 fontSize: 12,
@@ -109,7 +128,9 @@ class IncidentDetailScreen extends ConsumerWidget {
                         ),
                       ),
                       IconButton.filled(
-                        onPressed: () {},
+                        onPressed: _fileExists(incident.imagePath)
+                            ? () => _showEvidence(context, incident.imagePath!)
+                            : null,
                         icon: const Icon(Icons.fullscreen_rounded),
                       ),
                     ],
@@ -148,44 +169,69 @@ class IncidentDetailScreen extends ConsumerWidget {
                 children: [
                   _InfoRow(
                     icon: Icons.location_on_outlined,
-                    label: 'Location',
-                    value:
-                        '${incident.latitude.toStringAsFixed(4)}, ${incident.longitude.toStringAsFixed(4)}',
+                    label: 'Exact location',
+                    value: incident.area,
                   ),
-                  const Divider(height: 24),
-                  _InfoRow(
-                    icon: Icons.speed_rounded,
-                    label: 'Priority score',
-                    value: '${incident.priorityScore} / 100',
-                  ),
-                  const Divider(height: 24),
-                  _InfoRow(
-                    icon: Icons.monitor_heart_outlined,
-                    label: 'Road health',
-                    value: '${incident.healthScore} / 100',
-                  ),
+                  if (!citizen) ...[
+                    const Divider(height: 24),
+                    _InfoRow(
+                      icon: Icons.speed_rounded,
+                      label: 'Priority score',
+                      value: '${incident.priorityScore} / 100',
+                    ),
+                    const Divider(height: 24),
+                    _InfoRow(
+                      icon: Icons.monitor_heart_outlined,
+                      label: 'Road health',
+                      value: '${incident.healthScore} / 100',
+                    ),
+                  ],
                   const Divider(height: 24),
                   _InfoRow(
                     icon: Icons.engineering_outlined,
                     label: 'Assigned team',
                     value: incident.assignedTeam ?? 'Not assigned',
                   ),
-                  const Divider(height: 24),
-                  _InfoRow(
-                    icon: Icons.person_outline_rounded,
-                    label: 'Reported by',
-                    value: incident.reporterName,
-                  ),
+                  if (!citizen) ...[
+                    const Divider(height: 24),
+                    _InfoRow(
+                      icon: Icons.person_outline_rounded,
+                      label: 'Reported by',
+                      value: incident.reporterName,
+                    ),
+                  ],
                 ],
               ),
             ),
           ),
+          if (incident.repairImagePath != null) ...[
+            const SizedBox(height: 22),
+            const SectionTitle('Repair completion evidence'),
+            const SizedBox(height: 10),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: SizedBox(
+                height: 210,
+                width: double.infinity,
+                child: GestureDetector(
+                  onTap: _fileExists(incident.repairImagePath)
+                      ? () => _showEvidence(context, incident.repairImagePath!)
+                      : null,
+                  child: _EvidenceImage(
+                    path: incident.repairImagePath,
+                    fallbackIcon: Icons.broken_image_outlined,
+                    unavailableText: 'Completion image is unavailable',
+                  ),
+                ),
+              ),
+            ),
+          ],
           const SizedBox(height: 22),
-          const SectionTitle('Assessment'),
+          SectionTitle(citizen ? 'Report details' : 'Officer assessment'),
           const SizedBox(height: 10),
           Text(incident.description),
           const SizedBox(height: 22),
-          const SectionTitle('Audit timeline'),
+          SectionTitle(citizen ? 'Progress updates' : 'Audit timeline'),
           const SizedBox(height: 10),
           ...incident.timeline.asMap().entries.map(
             (entry) => _Timeline(
@@ -203,6 +249,73 @@ class IncidentDetailScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
+bool _fileExists(String? path) =>
+    path != null && path.isNotEmpty && File(path).existsSync();
+
+void _showEvidence(BuildContext context, String path) => showDialog<void>(
+  context: context,
+  builder: (context) => Dialog.fullscreen(
+    backgroundColor: Colors.black,
+    child: Stack(
+      children: [
+        Positioned.fill(
+          child: InteractiveViewer(
+            minScale: 1,
+            maxScale: 5,
+            child: Image.file(File(path), fit: BoxFit.contain),
+          ),
+        ),
+        Positioned(
+          top: 12,
+          right: 12,
+          child: SafeArea(
+            child: IconButton.filled(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.close_rounded),
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+
+class _EvidenceImage extends StatelessWidget {
+  const _EvidenceImage({
+    required this.path,
+    required this.fallbackIcon,
+    this.unavailableText = 'No road image available',
+  });
+
+  final String? path;
+  final IconData fallbackIcon;
+  final String unavailableText;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_fileExists(path)) {
+      return Image.file(
+        File(path!),
+        fit: BoxFit.cover,
+        errorBuilder: (_, _, _) => _fallback(),
+      );
+    }
+    return _fallback();
+  }
+
+  Widget _fallback() => Container(
+    color: const Color(0xFF233A49),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(fallbackIcon, size: 68, color: Colors.white24),
+        const SizedBox(height: 8),
+        Text(unavailableText, style: const TextStyle(color: Colors.white54)),
+      ],
+    ),
+  );
 }
 
 class _InfoRow extends StatelessWidget {
@@ -324,6 +437,18 @@ class _ActionBar extends ConsumerWidget {
     final role = ref.watch(sessionProvider)!.role;
 
     if (role == UserRole.citizen) {
+      if (incident.status == IncidentStatus.closed) {
+        return const _ReadOnlyStatus(
+          icon: Icons.task_alt_rounded,
+          text: 'Repair completed, verified, and closed by the municipality.',
+        );
+      }
+      if (incident.status == IncidentStatus.rejected) {
+        return const _ReadOnlyStatus(
+          icon: Icons.cancel_outlined,
+          text: 'The municipality rejected this report after manual review.',
+        );
+      }
       return _ReadOnlyStatus(
         icon: Icons.notifications_active_outlined,
         text:
@@ -475,16 +600,9 @@ class _ActionBar extends ConsumerWidget {
       return SizedBox(
         width: double.infinity,
         child: FilledButton.icon(
-          onPressed: () {
-            controller.transition(
-              incident.id,
-              IncidentStatus.awaitingClosure,
-              'Completion evidence uploaded by maintenance team',
-            );
-            showAppMessage(context, 'Sent for officer verification');
-          },
+          onPressed: () => _chooseRepairEvidence(context, controller),
           icon: const Icon(Icons.add_a_photo_rounded),
-          label: const Text('Add repair evidence'),
+          label: const Text('Upload completion evidence'),
         ),
       );
     }
@@ -494,6 +612,63 @@ class _ActionBar extends ConsumerWidget {
           ? 'Waiting for municipal closure approval.'
           : 'No maintenance action is required at this stage.',
     );
+  }
+
+  Future<void> _chooseRepairEvidence(
+    BuildContext context,
+    IncidentController controller,
+  ) async {
+    final source = await showModalBottomSheet<ImageSource>(
+      context: context,
+      showDragHandle: true,
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Add completion evidence',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 6),
+              const Text(
+                'Upload a clear photo of the repaired road for officer verification.',
+                style: TextStyle(color: AppColors.muted),
+              ),
+              const SizedBox(height: 14),
+              ListTile(
+                leading: const Icon(Icons.camera_alt_rounded),
+                title: const Text('Take completion photo'),
+                onTap: () => Navigator.pop(context, ImageSource.camera),
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library_rounded),
+                title: const Text('Choose from gallery'),
+                onTap: () => Navigator.pop(context, ImageSource.gallery),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    if (source == null || !context.mounted) return;
+
+    final selected = await ImagePicker().pickImage(
+      source: source,
+      imageQuality: 85,
+      maxWidth: 1920,
+    );
+    if (selected == null || !context.mounted) return;
+
+    controller.transition(
+      incident.id,
+      IncidentStatus.awaitingClosure,
+      'Completion evidence uploaded by ${incident.assignedTeam ?? 'maintenance team'}',
+      repairImagePath: selected.path,
+    );
+    showAppMessage(context, 'Completion photo sent for officer verification');
   }
 
   void _assign(BuildContext context, IncidentController controller) =>

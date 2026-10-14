@@ -37,14 +37,16 @@ class _IncidentsScreenState extends ConsumerState<IncidentsScreen> {
             child: Column(
               children: [
                 PageHeader(
-                  eyebrow: widget.onlyMine ? 'Your submissions' : 'All records',
-                  title: widget.onlyMine ? 'My reports' : 'Incident cases',
+                  eyebrow: widget.onlyMine
+                      ? 'Citizen dashboard'
+                      : 'Municipal records',
+                  title: widget.onlyMine ? 'My reports' : 'All citizen reports',
                 ),
                 const SizedBox(height: 18),
                 TextField(
                   onChanged: (value) => setState(() => query = value),
                   decoration: const InputDecoration(
-                    hintText: 'Search road, case or damage',
+                    hintText: 'Search road or report number',
                     prefixIcon: Icon(Icons.search_rounded),
                   ),
                 ),

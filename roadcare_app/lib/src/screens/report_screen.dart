@@ -2,10 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../ai_analysis_service.dart';
 import '../models.dart';
+import '../notification_service.dart';
 import '../store.dart';
 import '../theme.dart';
 import '../widgets.dart';
@@ -20,8 +23,12 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
   final road = TextEditingController();
   final notes = TextEditingController();
   XFile? image;
+  RoadDamageAnalysis? analysis;
+  String? analysisError;
   Position? position;
+  String? locationName;
   bool locating = false;
+  bool analyzing = false;
   bool submitting = false;
 
   @override
@@ -38,7 +45,36 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
       maxWidth: 1920,
     );
     if (selected != null && mounted) {
-      setState(() => image = selected);
+      setState(() {
+        image = selected;
+        analysis = null;
+        analysisError = null;
+      });
+      await _analyze(selected);
+    }
+  }
+
+  Future<RoadDamageAnalysis?> _analyze(XFile selected) async {
+    setState(() {
+      analyzing = true;
+      analysisError = null;
+    });
+    try {
+      final result = await RoadDamageAiService().analyze(selected);
+      if (!mounted || image?.path != selected.path) return null;
+      setState(() => analysis = result);
+      return result;
+    } catch (error) {
+      if (!mounted || image?.path != selected.path) return null;
+      final message = error is AiAnalysisException
+          ? error.message
+          : 'Could not analyse this image. Check your connection and retry.';
+      setState(() => analysisError = message);
+      return null;
+    } finally {
+      if (mounted && image?.path == selected.path) {
+        setState(() => analyzing = false);
+      }
     }
   }
 
@@ -61,8 +97,23 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
           accuracy: LocationAccuracy.high,
         ),
       );
+      String? resolvedAddress;
+      try {
+        final placemarks = await Geocoding().placemarkFromCoordinates(
+          result.latitude,
+          result.longitude,
+        );
+        if (placemarks.isNotEmpty) {
+          resolvedAddress = _formatAddress(placemarks.first);
+        }
+      } catch (_) {
+        resolvedAddress = null;
+      }
       if (mounted) {
-        setState(() => position = result);
+        setState(() {
+          position = result;
+          locationName = resolvedAddress;
+        });
       }
     } catch (error) {
       if (mounted) {
@@ -88,27 +139,40 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
       );
       return;
     }
+    var verified = analysis;
+    if (verified == null) {
+      verified = await _analyze(image!);
+      if (!mounted || verified == null) return;
+    }
+    if (!verified.accepted || verified.damageType == null) {
+      showAppMessage(context, verified.rejectionReason, success: false);
+      return;
+    }
+    final acceptedResult = verified;
+    await NotificationService.instance.requestPermission();
+    if (!mounted) return;
     setState(() => submitting = true);
-    await Future<void>.delayed(const Duration(milliseconds: 900));
     final now = DateTime.now();
     final reporter = ref.read(sessionProvider)!;
     final incident = RoadIncident(
-      id: 'RD-${1050 + now.second}',
+      id: 'RD-${now.millisecondsSinceEpoch.toString().substring(7)}',
       roadName: road.text.trim(),
-      area: position == null
-          ? 'Location requires verification'
-          : 'GPS captured on device',
-      type: DamageType.pothole,
-      severity: Severity.high,
+      area:
+          locationName ??
+          (position == null
+              ? 'Location requires verification'
+              : 'Pinned location - address lookup unavailable'),
+      type: acceptedResult.damageType!,
+      severity: acceptedResult.severity,
       status: IncidentStatus.pendingVerification,
-      confidence: .89,
+      confidence: acceptedResult.confidence,
       latitude: position?.latitude ?? 17.9133,
       longitude: position?.longitude ?? 77.5301,
       reportedAt: now,
-      priorityScore: 84,
-      healthScore: 48,
+      priorityScore: acceptedResult.priorityScore,
+      healthScore: acceptedResult.healthScore,
       description: notes.text.trim().isEmpty
-          ? 'AI detected a visible pothole. Officer verification is required.'
+          ? '${acceptedResult.summary} Officer verification is required.'
           : notes.text.trim(),
       reporterName: reporter.name,
       reporterEmail: reporter.email,
@@ -117,14 +181,15 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
       timeline: [
         TimelineEvent(
           title: 'AI analysis completed',
-          detail: 'Pretrained YOLOv8 RDD model · 89% confidence',
+          detail:
+              '${acceptedResult.provider} ${acceptedResult.model} · ${acceptedResult.confidencePercent}% confidence',
           time: now,
         ),
         TimelineEvent(
           title: 'Mobile evidence uploaded',
           detail: position == null
               ? 'Manual location follow-up required'
-              : 'GPS and timestamp recorded',
+              : locationName ?? 'GPS pinned; address lookup unavailable',
           time: now,
         ),
       ],
@@ -154,9 +219,20 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
                 padding: const EdgeInsets.all(14),
                 child: Column(
                   children: [
-                    const _Result(label: 'Damage', value: 'Pothole'),
+                    _Result(
+                      label: 'Damage',
+                      value: acceptedResult.damageType!.label,
+                    ),
                     const Divider(),
-                    const _Result(label: 'AI confidence', value: '89%'),
+                    _Result(
+                      label: 'AI confidence',
+                      value: '${acceptedResult.confidencePercent}%',
+                    ),
+                    const Divider(),
+                    _Result(
+                      label: 'Severity',
+                      value: acceptedResult.severity.label,
+                    ),
                     const Divider(),
                     _Result(
                       label: 'Priority',
@@ -237,7 +313,11 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
                         right: 12,
                         top: 12,
                         child: IconButton.filled(
-                          onPressed: () => setState(() => image = null),
+                          onPressed: () => setState(() {
+                            image = null;
+                            analysis = null;
+                            analysisError = null;
+                          }),
                           icon: const Icon(Icons.close_rounded),
                         ),
                       ),
@@ -245,6 +325,15 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
                   ),
           ),
         ),
+        if (image != null) ...[
+          const SizedBox(height: 12),
+          _AnalysisCard(
+            analyzing: analyzing,
+            analysis: analysis,
+            error: analysisError,
+            onRetry: analyzing ? null : () => _analyze(image!),
+          ),
+        ],
         const SizedBox(height: 18),
         TextField(
           controller: road,
@@ -274,13 +363,16 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
             title: Text(
               position == null
                   ? 'Attach current GPS location'
-                  : 'GPS location attached',
+                  : locationName == null
+                  ? 'GPS attached - address unavailable'
+                  : 'Exact address found',
               style: const TextStyle(fontWeight: FontWeight.w800),
             ),
             subtitle: Text(
               position == null
                   ? 'Required for reliable road matching'
-                  : '${position!.latitude.toStringAsFixed(5)}, ${position!.longitude.toStringAsFixed(5)}',
+                  : locationName ??
+                        'Tap Refresh to try the address lookup again',
             ),
             trailing: TextButton(
               onPressed: locating ? null : _locate,
@@ -325,8 +417,10 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
         child: FilledButton.icon(
-          onPressed: submitting ? null : _submit,
-          icon: submitting
+          onPressed: submitting || analyzing || analysis?.accepted == false
+              ? null
+              : _submit,
+          icon: submitting || analyzing
               ? const SizedBox(
                   width: 20,
                   height: 20,
@@ -334,7 +428,13 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
                 )
               : const Icon(Icons.auto_awesome_rounded),
           label: Text(
-            submitting ? 'Analysing evidence...' : 'Analyse and create case',
+            analyzing
+                ? 'Checking road evidence...'
+                : submitting
+                ? 'Creating case...'
+                : analysis?.accepted == false
+                ? 'Choose a valid road photo'
+                : 'Analyse and create case',
           ),
         ),
       ),
@@ -373,6 +473,118 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
       ),
     ),
   );
+}
+
+class _AnalysisCard extends StatelessWidget {
+  const _AnalysisCard({
+    required this.analyzing,
+    required this.analysis,
+    required this.error,
+    required this.onRetry,
+  });
+
+  final bool analyzing;
+  final RoadDamageAnalysis? analysis;
+  final String? error;
+  final VoidCallback? onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    if (analyzing) {
+      return const Card(
+        child: ListTile(
+          leading: CircularProgressIndicator(strokeWidth: 2),
+          title: Text('GPT-4.1 mini is checking this photo'),
+          subtitle: Text(
+            'Validating the road scene, damage type, and severity…',
+          ),
+        ),
+      );
+    }
+    if (error != null) {
+      return Card(
+        color: Theme.of(context).colorScheme.errorContainer,
+        child: ListTile(
+          leading: const Icon(Icons.cloud_off_rounded),
+          title: const Text('Analysis could not be completed'),
+          subtitle: Text(error!),
+          trailing: TextButton(onPressed: onRetry, child: const Text('Retry')),
+        ),
+      );
+    }
+    final result = analysis;
+    if (result == null) return const SizedBox.shrink();
+    if (!result.accepted) {
+      return Card(
+        color: Theme.of(context).colorScheme.errorContainer,
+        child: ListTile(
+          leading: const Icon(Icons.cancel_outlined),
+          title: const Text('Photo rejected'),
+          subtitle: Text(result.rejectionReason),
+          isThreeLine: true,
+        ),
+      );
+    }
+    return Card(
+      color: AppColors.teal.withValues(alpha: .1),
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Row(
+              children: [
+                Icon(Icons.verified_rounded, color: AppColors.teal),
+                SizedBox(width: 8),
+                Text(
+                  'Verified road damage',
+                  style: TextStyle(fontWeight: FontWeight.w900),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                Chip(label: Text(result.damageType!.label)),
+                Chip(label: Text('${result.confidencePercent}% confidence')),
+                Chip(label: Text('${result.severity.label} severity')),
+                Chip(label: Text('Priority ${result.priorityScore}/100')),
+              ],
+            ),
+            if (result.summary.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Text(result.summary),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+String? _formatAddress(Placemark placemark) {
+  final values = <String?>[
+    placemark.name,
+    placemark.street,
+    placemark.subThoroughfare,
+    placemark.thoroughfare,
+    placemark.subLocality,
+    placemark.locality,
+    placemark.subAdministrativeArea,
+    placemark.administrativeArea,
+    placemark.postalCode,
+    placemark.country,
+  ];
+  final seen = <String>{};
+  final parts = <String>[];
+  for (final value in values) {
+    final part = value?.trim();
+    if (part == null || part.isEmpty) continue;
+    if (seen.add(part.toLowerCase())) parts.add(part);
+  }
+  return parts.isEmpty ? null : parts.join(', ');
 }
 
 class _SourceButton extends StatelessWidget {

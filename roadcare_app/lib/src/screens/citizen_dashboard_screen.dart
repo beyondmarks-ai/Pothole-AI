@@ -6,6 +6,7 @@ import '../store.dart';
 import '../theme.dart';
 import '../widgets.dart';
 import 'incident_detail_screen.dart';
+import 'report_screen.dart';
 
 class CitizenDashboardScreen extends ConsumerWidget {
   const CitizenDashboardScreen({super.key});
@@ -17,7 +18,7 @@ class CitizenDashboardScreen extends ConsumerWidget {
         .watch(incidentProvider)
         .where((incident) => incident.reporterEmail == user.email)
         .toList();
-    final open = reports
+    final inProgress = reports
         .where(
           (item) =>
               item.status != IncidentStatus.closed &&
@@ -33,12 +34,8 @@ class CitizenDashboardScreen extends ConsumerWidget {
         padding: const EdgeInsets.fromLTRB(20, 18, 20, 110),
         children: [
           PageHeader(
-            eyebrow: 'Hello, ${user.name.split(' ').first}',
-            title: 'My road reports',
-            action: IconButton.filledTonal(
-              onPressed: () {},
-              icon: const Icon(Icons.notifications_none_rounded),
-            ),
+            eyebrow: 'Citizen dashboard',
+            title: 'Hello, ${user.name.split(' ').first}',
           ),
           const SizedBox(height: 20),
           Container(
@@ -49,20 +46,20 @@ class CitizenDashboardScreen extends ConsumerWidget {
               ),
               borderRadius: BorderRadius.circular(24),
             ),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.track_changes_rounded,
                   color: Colors.white,
                   size: 38,
                 ),
-                SizedBox(width: 14),
-                Expanded(
+                const SizedBox(width: 14),
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Track every update',
+                        'See a road problem?',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w900,
@@ -71,48 +68,43 @@ class CitizenDashboardScreen extends ConsumerWidget {
                       ),
                       SizedBox(height: 4),
                       Text(
-                        'From municipal review to completed repair',
+                        'Send a photo and track what happens next.',
                         style: TextStyle(color: Colors.white70),
                       ),
                     ],
                   ),
                 ),
+                IconButton.filled(
+                  tooltip: 'Report road damage',
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const ReportScreen()),
+                  ),
+                  icon: const Icon(Icons.add_a_photo_rounded),
+                ),
               ],
             ),
           ),
           const SizedBox(height: 18),
-          SizedBox(
-            height: 142,
-            child: Row(
-              children: [
-                Expanded(
-                  child: MetricCard(
-                    label: 'Submitted',
-                    value: '${reports.length}',
-                    icon: Icons.upload_file_rounded,
-                    color: AppColors.blue,
-                  ),
+          Row(
+            children: [
+              Expanded(
+                child: _SimpleCount(
+                  label: 'Being handled',
+                  value: inProgress,
+                  icon: Icons.schedule_rounded,
+                  color: AppColors.amber,
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: MetricCard(
-                    label: 'In progress',
-                    value: '$open',
-                    icon: Icons.pending_actions_rounded,
-                    color: AppColors.amber,
-                  ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _SimpleCount(
+                  label: 'Repaired',
+                  value: repaired,
+                  icon: Icons.task_alt_rounded,
+                  color: AppColors.teal,
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: MetricCard(
-                    label: 'Repaired',
-                    value: '$repaired',
-                    icon: Icons.task_alt_rounded,
-                    color: AppColors.teal,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           const SizedBox(height: 26),
           const SectionTitle('Latest progress'),
@@ -132,6 +124,49 @@ class CitizenDashboardScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
+class _SimpleCount extends StatelessWidget {
+  const _SimpleCount({
+    required this.label,
+    required this.value,
+    required this.icon,
+    required this.color,
+  });
+
+  final String label;
+  final int value;
+  final IconData icon;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) => Card(
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          CircleAvatar(
+            backgroundColor: color.withValues(alpha: .12),
+            foregroundColor: color,
+            child: Icon(icon),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '$value',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                Text(label, style: const TextStyle(fontSize: 12)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 class _ProgressCard extends StatelessWidget {

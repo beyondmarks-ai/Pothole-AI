@@ -6,6 +6,7 @@
 # Generated build output
 **/build/
 **/.gradle/
+releases/*-debug.apk
 
 # IDE and operating-system files
 **/.idea/
@@ -16,6 +17,7 @@ Thumbs.db
 # Local configuration and secrets
 .env
 .env.*
+!.env.example
 **/local.properties
 **/key.properties
 **/*.jks
@@ -24,4 +26,3 @@ Thumbs.db
 **/*.pem
 **/google-services.json
 **/GoogleService-Info.plist
-
