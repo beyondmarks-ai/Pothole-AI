@@ -50,10 +50,11 @@ class IncidentDetailScreen extends ConsumerWidget {
                 Positioned.fill(
                   child: _EvidenceImage(
                     path: incident.imagePath,
+                    url: incident.imageUrl,
                     fallbackIcon: Icons.add_road_rounded,
                   ),
                 ),
-                if (_fileExists(incident.imagePath))
+                if (_hasEvidence(incident.imagePath, incident.imageUrl))
                   Positioned.fill(
                     child: DecoratedBox(
                       decoration: BoxDecoration(
@@ -116,7 +117,10 @@ class IncidentDetailScreen extends ConsumerWidget {
                               ),
                             ),
                             Text(
-                              _fileExists(incident.imagePath)
+                              _hasEvidence(
+                                    incident.imagePath,
+                                    incident.imageUrl,
+                                  )
                                   ? 'Citizen-uploaded road evidence'
                                   : 'Evidence preview unavailable',
                               style: TextStyle(
@@ -128,8 +132,13 @@ class IncidentDetailScreen extends ConsumerWidget {
                         ),
                       ),
                       IconButton.filled(
-                        onPressed: _fileExists(incident.imagePath)
-                            ? () => _showEvidence(context, incident.imagePath!)
+                        onPressed:
+                            _hasEvidence(incident.imagePath, incident.imageUrl)
+                            ? () => _showEvidence(
+                                context,
+                                incident.imagePath,
+                                incident.imageUrl,
+                              )
                             : null,
                         icon: const Icon(Icons.fullscreen_rounded),
                       ),
@@ -204,7 +213,10 @@ class IncidentDetailScreen extends ConsumerWidget {
               ),
             ),
           ),
-          if (incident.repairImagePath != null) ...[
+          if (_hasEvidence(
+            incident.repairImagePath,
+            incident.repairImageUrl,
+          )) ...[
             const SizedBox(height: 22),
             const SectionTitle('Repair completion evidence'),
             const SizedBox(height: 10),
@@ -214,11 +226,20 @@ class IncidentDetailScreen extends ConsumerWidget {
                 height: 210,
                 width: double.infinity,
                 child: GestureDetector(
-                  onTap: _fileExists(incident.repairImagePath)
-                      ? () => _showEvidence(context, incident.repairImagePath!)
+                  onTap:
+                      _hasEvidence(
+                        incident.repairImagePath,
+                        incident.repairImageUrl,
+                      )
+                      ? () => _showEvidence(
+                          context,
+                          incident.repairImagePath,
+                          incident.repairImageUrl,
+                        )
                       : null,
                   child: _EvidenceImage(
                     path: incident.repairImagePath,
+                    url: incident.repairImageUrl,
                     fallbackIcon: Icons.broken_image_outlined,
                     unavailableText: 'Completion image is unavailable',
                   ),
@@ -254,42 +275,50 @@ class IncidentDetailScreen extends ConsumerWidget {
 bool _fileExists(String? path) =>
     path != null && path.isNotEmpty && File(path).existsSync();
 
-void _showEvidence(BuildContext context, String path) => showDialog<void>(
-  context: context,
-  builder: (context) => Dialog.fullscreen(
-    backgroundColor: Colors.black,
-    child: Stack(
-      children: [
-        Positioned.fill(
-          child: InteractiveViewer(
-            minScale: 1,
-            maxScale: 5,
-            child: Image.file(File(path), fit: BoxFit.contain),
-          ),
-        ),
-        Positioned(
-          top: 12,
-          right: 12,
-          child: SafeArea(
-            child: IconButton.filled(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.close_rounded),
+bool _hasEvidence(String? path, String? url) =>
+    _fileExists(path) || (url != null && url.isNotEmpty);
+
+void _showEvidence(BuildContext context, String? path, String? url) =>
+    showDialog<void>(
+      context: context,
+      builder: (context) => Dialog.fullscreen(
+        backgroundColor: Colors.black,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: InteractiveViewer(
+                minScale: 1,
+                maxScale: 5,
+                child: _fileExists(path)
+                    ? Image.file(File(path!), fit: BoxFit.contain)
+                    : Image.network(url!, fit: BoxFit.contain),
+              ),
             ),
-          ),
+            Positioned(
+              top: 12,
+              right: 12,
+              child: SafeArea(
+                child: IconButton.filled(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.close_rounded),
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
-    ),
-  ),
-);
+      ),
+    );
 
 class _EvidenceImage extends StatelessWidget {
   const _EvidenceImage({
     required this.path,
+    required this.url,
     required this.fallbackIcon,
     this.unavailableText = 'No road image available',
   });
 
   final String? path;
+  final String? url;
   final IconData fallbackIcon;
   final String unavailableText;
 
@@ -299,6 +328,16 @@ class _EvidenceImage extends StatelessWidget {
       return Image.file(
         File(path!),
         fit: BoxFit.cover,
+        errorBuilder: (_, _, _) => _fallback(),
+      );
+    }
+    if (url != null && url!.isNotEmpty) {
+      return Image.network(
+        url!,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, progress) => progress == null
+            ? child
+            : const Center(child: CircularProgressIndicator()),
         errorBuilder: (_, _, _) => _fallback(),
       );
     }

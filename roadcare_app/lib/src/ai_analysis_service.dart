@@ -65,7 +65,12 @@ class RoadDamageAiService {
   RoadDamageAiService({http.Client? client, String? endpoint})
     : _client = client ?? http.Client(),
       _endpoint =
-          endpoint ?? const String.fromEnvironment('ROADCARE_AI_API_URL');
+          endpoint ??
+          const String.fromEnvironment(
+            'ROADCARE_AI_API_URL',
+            defaultValue:
+                'https://roadcare-ai-api-617db5.azurewebsites.net/api/analyze',
+          );
 
   final http.Client _client;
   final String _endpoint;

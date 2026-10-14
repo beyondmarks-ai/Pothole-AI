@@ -17,14 +17,20 @@ Flutter Android application for AI-assisted road-damage reporting and an account
 - Per-case audit timeline, status, severity, priority, health score, and team ownership
 - Maintenance work queue, profile, system status, and dark mode
 - Responsive Material 3 design and reusable UI components
+- Shared Azure Table Storage complaint repository across devices
+- Private Azure Blob Storage evidence with controlled API delivery
+- Automatic 12-second cross-device refresh for citizen, officer, and repair views
 
-The incident repository remains in-memory for this prototype, so data resets when the process restarts. Image inference is real when the secure backend URL is supplied. Replace `IncidentController` with a secured cloud repository before production use.
+Complaints and evidence are now persisted in Azure, so a citizen's submission
+appears on another device and officer/team updates return to the citizen. The
+prototype role picker is still not production authentication; use Microsoft
+Entra External ID and enforce authorization in the API before public release.
 
 ## Run
 
 ```powershell
 flutter pub get
-flutter run --dart-define=ROADCARE_AI_API_URL=https://roadcare-ai-api-617db5.azurewebsites.net/api/analyze
+flutter run
 ```
 
 Demo accounts are selected by role. The citizen demo uses `citizen@roadcare.app`; the municipal demo uses `officer@bidar.gov.in`. The password is `roadcare`.
@@ -44,7 +50,7 @@ For a local physical-device test, run the backend on port 7071, use
 flutter run --dart-define=ROADCARE_AI_API_URL=http://127.0.0.1:7071/analyze
 ```
 
-The standalone version 1.1.0 release uses the public HTTPS Azure Function and
+The standalone version 1.2.0 release uses the public HTTPS Azure Function and
 does not require ADB, a development computer, or a local backend process.
 
 ## Verification
@@ -67,6 +73,8 @@ For Play Store delivery, create an upload key, copy `android/key.properties.exam
 
 Android packaging requires free Gradle/temp space. On this workstation, redirect `GRADLE_USER_HOME`, `PUB_CACHE`, `TEMP`, and `TMP` to `D:\Pothole\.tool-cache`.
 
-## Planned API boundary
+## Cloud API
 
-The backend should provide endpoints for authentication, media upload, processing jobs, incidents, verification, assignments, repair evidence, closure, notifications, and dashboard metrics. AI inference remains on the backend; the mobile app uploads evidence and renders structured results.
+The Azure Function provides health, image analysis, complaint create/list/update,
+and evidence download endpoints. AI inference and Azure Storage access stay on
+the backend; the APK contains no Azure credential.

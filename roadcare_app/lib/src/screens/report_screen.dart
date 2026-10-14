@@ -155,7 +155,7 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
     final now = DateTime.now();
     final reporter = ref.read(sessionProvider)!;
     final incident = RoadIncident(
-      id: 'RD-${now.millisecondsSinceEpoch.toString().substring(7)}',
+      id: 'RD-${now.millisecondsSinceEpoch}',
       roadName: road.text.trim(),
       area:
           locationName ??
@@ -194,7 +194,20 @@ class _ReportScreenState extends ConsumerState<ReportScreen> {
         ),
       ],
     );
-    ref.read(incidentProvider.notifier).add(incident);
+    try {
+      await ref.read(incidentProvider.notifier).add(incident);
+    } catch (error) {
+      if (!mounted) return;
+      setState(() => submitting = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Could not submit the report. Check your internet connection and try again.\n$error',
+          ),
+        ),
+      );
+      return;
+    }
     if (!mounted) return;
     setState(() => submitting = false);
     await showDialog<void>(

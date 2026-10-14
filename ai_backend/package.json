@@ -10,7 +10,9 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@azure/functions": "^4.7.2"
+    "@azure/data-tables": "^13.3.2",
+    "@azure/functions": "^4.7.2",
+    "@azure/storage-blob": "^12.29.1"
   },
   "engines": {
     "node": ">=20"

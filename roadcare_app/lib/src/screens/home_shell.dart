@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,6 +20,23 @@ class HomeShell extends ConsumerStatefulWidget {
 
 class _HomeShellState extends ConsumerState<HomeShell> {
   int index = 0;
+  Timer? _refreshTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => ref.read(incidentProvider.notifier).refresh());
+    _refreshTimer = Timer.periodic(
+      const Duration(seconds: 12),
+      (_) => ref.read(incidentProvider.notifier).refresh(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _refreshTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
